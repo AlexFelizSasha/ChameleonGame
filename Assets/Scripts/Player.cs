@@ -8,9 +8,13 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _playerRadar;
 
     private SearchingBlockColor _blockColorSearch;
+    private Transform _pointToMove;
+    private float _moveSpeed = 10f;
+
     private void Awake()
     {
         _blockColorSearch = _playerRadar.GetComponent<SearchingBlockColor>();
+        _pointToMove = null;
     }
     private void Start()
     {
@@ -18,48 +22,63 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-
+        if (_pointToMove != null)
+        {
+            MoveToNewPoint(_pointToMove);
+        }
     }
 
     private void ColorButtonsManager_OnColorChangedWithButton(object sender, ColorButtonsManagerUI.OnColorChangedWithButtonEventArgs e)
     {
         ChangeSkinColor(e.materialSO);
-        ChangeDirectionToColor();
+        ChangeDirectionToChosenColor();
+        if (FindBlockToMove() != null)
+        {
+            _pointToMove = FindBlockToMove().transform;
+        }
     }
     private void ChangeSkinColor(MaterialSO materialSO)
     {
         Material _material = materialSO.Material;
-        var renderer = _playerVisual.gameObject.GetComponent<MeshRenderer>();
-        var playerMaterials = renderer.materials;
-        playerMaterials[0] = _material;
-        renderer.materials = playerMaterials;
+        var _renderer = _playerVisual.gameObject.GetComponent<MeshRenderer>();
+        var _playerMaterials = _renderer.materials;
+        _playerMaterials[0] = _material;
+        _renderer.materials = _playerMaterials;
         Debug.Log("Color Changed to " + materialSO.Color);
     }
-    private void ChangeDirectionToColor()
+    private void ChangeDirectionToChosenColor()
     {
-        Vector3 _heightDifference = new Vector3(0, 1.25f, 0);
-        Vector3 _rotateDirection = FindBlockToMove().transform.position + _heightDifference;
-        transform.forward = _rotateDirection;
-        Debug.Log("New direction is " + _rotateDirection);
+        if (FindBlockToMove() != null)
+        {
+            Vector3 _blockPosition = FindBlockToMove().transform.position;
+            Vector3 _newForwardDirection = _blockPosition - transform.position;
+            transform.forward = _newForwardDirection.normalized;
+        }
     }
-    private GameObject FindBlockToMove()
+    private Block FindBlockToMove()
     {
-        GameObject _blockToMove = gameObject;
+        Block _blockToMove = null;
         var _playerMaterials = _playerVisual.gameObject.GetComponent<MeshRenderer>().materials;
         List<GameObject> _closeBlocks = _blockColorSearch.GetCloseBlocksList();
         foreach (var block in _closeBlocks)
         {
             if (block != null)
             {
-                var _blockMaterials = block.GetComponent<MeshRenderer>().materials;
-                Debug.Log($"{block}, {_blockMaterials[0]}, {_playerMaterials[0]}");
+                var _blockVisual = block.GetComponent<Block>().GetBlockVisual();
+                var _blockMaterials = _blockVisual.GetComponent<MeshRenderer>().materials;
                 if (_blockMaterials[0].name == _playerMaterials[0].name)
                 {
-                    _blockToMove = block;
-                    Debug.Log(_blockToMove);
+                    _blockToMove = block.GetComponent<Block>();
                 }
             }
         }
         return _blockToMove;
+    }
+    private void MoveToNewPoint(Transform pointTransform)
+    {
+        float _moveDistance = _moveSpeed * Time.deltaTime;
+        Vector3 _blockPosition = pointTransform.position;
+
+        transform.position = Vector3.MoveTowards(transform.position, _blockPosition, _moveDistance);
     }
 }
