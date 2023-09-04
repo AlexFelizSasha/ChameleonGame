@@ -18,6 +18,9 @@ public class ColorButtonsManagerUI : MonoBehaviour
     [SerializeField] private Button _greenButton;
     [SerializeField] private Button _yellowButton;
     [SerializeField] private Button _grayButton;
+    [SerializeField] private Button _blueButton;
+    [SerializeField] private Button _orangeButton;
+    [SerializeField] private Button _violetButton;
 
     [SerializeField] private MaterialSOList _materialSOList;
     private MaterialSO _materialSO;
@@ -52,6 +55,21 @@ public class ColorButtonsManagerUI : MonoBehaviour
         _grayButton.onClick.AddListener(() =>
         {
             GiveColor(_materialSOList.Gray);
+        }
+        );
+        _blueButton.onClick.AddListener(() =>
+        {
+            GiveColor(_materialSOList.Blue);
+        }
+        );
+        _orangeButton.onClick.AddListener(() =>
+        {
+            GiveColor(_materialSOList.Orange);
+        }
+        );
+        _violetButton.onClick.AddListener(() =>
+        {
+            GiveColor(_materialSOList.Violet);
         }
         );
     }
