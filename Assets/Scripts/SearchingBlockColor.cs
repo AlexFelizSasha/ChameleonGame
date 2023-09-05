@@ -4,20 +4,9 @@ using UnityEngine;
 
 public class SearchingBlockColor : MonoBehaviour
 {
-    public List<GameObject> GetCloseBlocksList(Vector3 _currentPosition)
-    {
-        return FindBlocksAround(_currentPosition);
-    }
     public Block FindSameColorBlock(Transform visualTransform)
     {
         return FindSameColorBlock(visualTransform, visualTransform);
-    }
-    public Block FindSameColorDiagonalBlock(Transform visualTransform)
-    {
-        var _playerMaterials = visualTransform.gameObject.GetComponent<MeshRenderer>().materials;
-        List<GameObject> _closeBlocks = FindBlocksAroundDiagonal(visualTransform.position);
-        return FindBlockInList(_closeBlocks, visualTransform);
-        
     }
     public Block FindSameColorBlock(Transform visualTransform, Transform radarTransform)
     {
@@ -44,40 +33,6 @@ public class SearchingBlockColor : MonoBehaviour
         }
         return _sameColorBlock;
     }
-    private List<GameObject> FindBlocksAroundDiagonal(Vector3 _currentPosition)
-    {
-        List<GameObject> _blocksAround = new List<GameObject>();
-        //float _distanceToBlock = BlocksCreator.BlockSideSize / Mathf.Cos(45); 
-        Vector3 _rightTop = new Vector3(transform.position.x + 1,
-                                    transform.position.y,
-                                    transform.position.z + 1);
-        Vector3 _rightBottom = new Vector3(transform.position.x - 1,
-                                    transform.position.y,
-                                    transform.position.z + 1);
-        Vector3 _leftBottom = new Vector3(transform.position.x - 1,
-                                    transform.position.y,
-                                    transform.position.z - 1);
-        Vector3 _leftTop = new Vector3(transform.position.x + 1,
-                                    transform.position.y,
-                                    transform.position.z - 1);
-        Vector3 _blockToBlockVector = _rightTop - _currentPosition;
-        Vector3 _blockToBlockVectorNormalized = _blockToBlockVector.normalized;
-        float _distanceToBlock = _blockToBlockVectorNormalized.magnitude;
-        _blocksAround.Add(SearchForNeighborBlock(_rightTop, _currentPosition, _distanceToBlock));
-        Debug.Log(SearchForNeighborBlock(_rightTop, _currentPosition, _distanceToBlock));
-
-        _blocksAround.Add(SearchForNeighborBlock(_rightBottom, _currentPosition, _distanceToBlock));
-        Debug.Log(SearchForNeighborBlock(_rightBottom, _currentPosition, _distanceToBlock));
-
-        _blocksAround.Add(SearchForNeighborBlock(_leftBottom, _currentPosition, _distanceToBlock));
-        Debug.Log(SearchForNeighborBlock(_rightBottom, _currentPosition, _distanceToBlock));
-
-        _blocksAround.Add(SearchForNeighborBlock(_leftTop, _currentPosition, _distanceToBlock));
-        Debug.Log(SearchForNeighborBlock(_leftTop, _currentPosition, _distanceToBlock));
-
-        return _blocksAround;
-
-    }    
     private List<GameObject> FindBlocksAround(Vector3 _currentPosition)
     {
         List<GameObject> _blocksAround = new List<GameObject>();

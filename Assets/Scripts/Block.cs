@@ -13,18 +13,17 @@ public class Block : MonoBehaviour
     private void Awake()
     {
         _searchingBlockColor = _blockVisual.GetComponent<SearchingBlockColor>();
-        SetBlockcolor(_materialSOList[Random.Range(0, _materialSOList.Count)]);
+        SetBlockColor(_materialSOList[Random.Range(0, _materialSOList.Count)]);
     }
     private void Update()
     {
         ChangingSameColors();
-        ChangingSameColorsDiagonal();
     }
     public GameObject GetBlockVisual()
     {
         return _blockVisual;    
     }
-    private void SetBlockcolor(MaterialSO materialSO)
+    private void SetBlockColor(MaterialSO materialSO)
     {
         Material _material = materialSO.Material;
         var _renderer = _blockVisual.gameObject.GetComponent<MeshRenderer>();
@@ -37,15 +36,7 @@ public class Block : MonoBehaviour
         Block _sameColorBlock = _searchingBlockColor.FindSameColorBlock(_blockVisual.transform);
         if (_sameColorBlock != null)
         {
-            SetBlockcolor(_materialSOList[Random.Range(0, _materialSOList.Count)]);
-        }
-    }
-    private void ChangingSameColorsDiagonal()
-    {
-        Block _sameColorBlock = _searchingBlockColor.FindSameColorDiagonalBlock(_blockVisual.transform);
-        if (_sameColorBlock != null)
-        {
-            SetBlockcolor(_materialSOList[Random.Range(0, _materialSOList.Count)]);
+            SetBlockColor(_materialSOList[Random.Range(0, _materialSOList.Count)]);
         }
     }
 }
