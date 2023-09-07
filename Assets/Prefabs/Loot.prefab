@@ -128,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8157114664855337459}
   - component: {fileID: 2226936824946958770}
+  - component: {fileID: 2801253500172849479}
   m_Layer: 0
   m_Name: Loot
   m_TagString: Untagged
@@ -146,7 +147,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.87, y: 2.35, z: -2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8659792137188954903}
   m_Father: {fileID: 0}
@@ -163,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847e56db71fc1354ea44ebf430da73c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lootVisual: {fileID: 8659792137188954903}
+  _lootVisual: {fileID: 4200258428224941330}
   _materialSOList:
   - {fileID: 11400000, guid: e4c0a499158e4ca48857034aebc2c334, type: 2}
   - {fileID: 11400000, guid: cc5f097546a92ad459eafc0e7eb46dc2, type: 2}
@@ -174,3 +175,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 61fe89e610d0c2e4893e83fdb818dcf0, type: 2}
   - {fileID: 11400000, guid: 8ee4ee6aac775d24c8b4f80c06c25226, type: 2}
   - {fileID: 11400000, guid: 48fcc06c5fe3f68469a10589943557d5, type: 2}
+--- !u!95 &2801253500172849479
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5540150156153864151}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 414496f0ed95a9d42ac0edeeca887137, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

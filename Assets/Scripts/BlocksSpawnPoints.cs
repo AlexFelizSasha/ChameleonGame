@@ -6,11 +6,14 @@ using UnityEngine;
 
 public class BlocksSpawnPoints
 {
+    public static int startPositionX = 0;
+    public static int startPositionY = -10;
+    public static int startPositionZ = 0;
     private static int[,] SpawnPointsArraySquare(int squareSide, int blockSideSize)
     {
         int _pointsAmount = squareSide * squareSide;
         int[,] _pointsArray = new int[3, _pointsAmount];
-        int _positionX = 0, _positionY = 1, _positionZ = 0;
+        int _positionX = startPositionX, _positionY = startPositionY, _positionZ = startPositionZ;
         for (int i = 0; i < _pointsAmount; i++)
         {
             if (i % squareSide == 0 && i != 0)

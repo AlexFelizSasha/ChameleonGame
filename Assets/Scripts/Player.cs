@@ -1,9 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public event EventHandler<OnLeavingBlockEventArgs> OnLeavingBlock;
+    public class OnLeavingBlockEventArgs : EventArgs
+    {
+        public Transform leftBlockTransform;
+    }
+
     [SerializeField] private Transform _playerVisual;
     [SerializeField] private Transform _playerRadar;
 
@@ -25,7 +32,7 @@ public class Player : MonoBehaviour
     {
         if (_pointToMove != null)
         {
-            MoveToNewPoint(_pointToMove);
+            MoveToNewBlock(_pointToMove);
         }
     }
 
@@ -58,8 +65,12 @@ public class Player : MonoBehaviour
             transform.forward = _newForwardDirection.normalized;
         }
     }
-    private void MoveToNewPoint(Transform pointTransform)
+    private void MoveToNewBlock(Transform pointTransform)
     {
+        OnLeavingBlock?.Invoke(this, new OnLeavingBlockEventArgs
+        {
+            leftBlockTransform = transform
+        });
         float _moveDistance = _moveSpeed * Time.deltaTime;
         Vector3 _blockPosition = pointTransform.position;
 

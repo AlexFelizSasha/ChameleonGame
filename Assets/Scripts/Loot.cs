@@ -4,17 +4,52 @@ using UnityEngine;
 
 public class Loot : MonoBehaviour
 {
-    [SerializeField] private Transform _lootVisual;
+    [SerializeField] private GameObject _lootVisual;
 
     [SerializeField] private List<MaterialSO> _materialSOList;
 
-    private void SetLootColor(MaterialSO materialSO)
+    private float _fallingSpeed = 6.0f;
+    private bool _isTouched = false;
+    private bool _isPicked = false;
+    private int _downPointY = -25;   //how low loot falls down
+
+    private void Start()
     {
-        Material _material = materialSO.Material;
-        var _renderer = _lootVisual.gameObject.GetComponent<MeshRenderer>();
-        var _playerMaterials = _renderer.materials;
-        _playerMaterials[0] = _material;
-        _renderer.materials = _playerMaterials;
+        _lootVisual.GetComponent<LootVisual>().OnLootTouched += Loot_OnLootTouched;
+        _lootVisual.GetComponent<LootVisual>().OnLootPicked += Loot_OnLootPicked;
     }
-    
+    private void Update()
+    {
+        if (_isTouched)
+        {
+            DropDownLoot();
+        }
+        if (_isPicked)
+        {
+            DestroyLoot();
+        }
+    }
+    private void Loot_OnLootPicked(object sender, System.EventArgs e)
+    {
+        _isPicked = true;
+    }
+
+
+    private void Loot_OnLootTouched(object sender, System.EventArgs e)
+    {       
+        _isTouched = true;
+
+        Debug.Log("Loot Touched!");
+    }
+    private void DropDownLoot()
+    {
+        float _moveDistance = _fallingSpeed * Time.deltaTime;
+        
+        Vector3 _fallingDirection = new Vector3(transform.position.x, _downPointY, transform.position.z);
+        transform.position = Vector3.MoveTowards(transform.position, _fallingDirection, _moveDistance);
+    }
+    private void DestroyLoot()
+    {
+        Destroy(gameObject);
+    }
 }
