@@ -50,6 +50,8 @@ public class Loot : MonoBehaviour
     }
     private void DestroyLoot()
     {
-        Destroy(gameObject);
+        _isTouched = false;
+        _isPicked = false;
+        gameObject.SetActive(false);
     }
 }

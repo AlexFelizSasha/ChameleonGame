@@ -5,16 +5,27 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    public static event EventHandler<OnBlockReplacingEventArgs> OnBlockReplacing;
+    public class OnBlockReplacingEventArgs : EventArgs
+    {
+        public Vector3 blockPosition;
+    }
+    public static event EventHandler<OnBlockIdleEventArgs> OnBlockIdle;
+    public class OnBlockIdleEventArgs : EventArgs
+    {
+        public Vector3 blockPosition;
+    }
+
     public event EventHandler OnBlockDestroyed;
     [SerializeField] private GameObject _blockVisual;
     private enum State
     {
-        Created,
+        Creation,
         FirstFlight,
-        WaitingForPLayer,
+        Idle,
         WithPlayer,
-        Replaced,
-        Destroyed
+        Replacing,
+        Destroying
     }
 
     private State _state;
@@ -27,10 +38,12 @@ public class Block : MonoBehaviour
     private bool _playerIsOnBlock = false;
     private float _livingTime;
     private float _timeForFirstFlight = 1f;
+    public bool _isCreated = false;
+    public bool _isReplaced = false;
 
     private void Start()
     {
-        _state = State.Created;
+        _state = State.Creation;
         _livingTime = 0;
         _blockVisual.GetComponent<BlockVisual>().OnPlayerIsOnBlock += Block_OnPlayerIsOnBlock;
         _blockVisual.GetComponent<BlockVisual>().OnPlayerLeavesBlock += Block_OnPlayerLeavesBlock;
@@ -41,42 +54,74 @@ public class Block : MonoBehaviour
         _livingTime += Time.deltaTime;
         switch (_state)
         {
-            case State.Created:
-                if (_livingTime > _timeForFirstFlight)
-                {
-                    _state = State.FirstFlight;
-                }
+            case State.Creation:
+                HandleCreationState();
                 break;
             case State.FirstFlight:
-                MoveBlock(_gamePlayPositionY);
-                if (transform.position.y == _gamePlayPositionY)
-                {
-                    _state = State.WaitingForPLayer;
-                }
+                HandleFirstFlightState();
                 break;
-            case State.WaitingForPLayer:
-                if (_playerIsOnBlock)
-                {
-                    _state = State.WithPlayer;
-                }
+            case State.Idle:
+                HandleIdleState();
                 break;
             case State.WithPlayer:
-                if (_playerLeftBlock)
-                {
-                    _state = State.Replaced;
-                }
+                HandleWithPlayerState();
                 break;
-            case State.Replaced:
-                MoveBlock(_destroyingPositionY);
-                if (transform.position.y == _destroyingPositionY)
-                {
-                    _state = State.Destroyed;
-                }
+            case State.Replacing:
+                HandleReplacingState();
                 break;
-            case State.Destroyed:
+            case State.Destroying:
                 DestroyBlock();
                 break;
         }
+    }
+    private void HandleCreationState()
+    {
+        if (_livingTime > _timeForFirstFlight)
+        {
+            _state = State.FirstFlight;
+        }
+    }
+    private void HandleFirstFlightState()
+    {
+        MoveBlock(_gamePlayPositionY);
+        if (transform.position.y == _gamePlayPositionY)
+        {
+            OnBlockIdle?.Invoke(this, new OnBlockIdleEventArgs
+            {
+                blockPosition = transform.position
+            });
+            _state = State.Idle;
+        }
+        _isCreated = false;
+    }
+    private void HandleIdleState()
+    {
+        if (_playerIsOnBlock)
+        {
+            _state = State.WithPlayer;
+        }
+    }
+    private void HandleWithPlayerState()
+    {
+        if (_playerLeftBlock)
+        {
+            OnBlockReplacing?.Invoke(this, new OnBlockReplacingEventArgs
+            {
+                blockPosition = transform.position
+            });
+            _state = State.Replacing;
+        }
+        _isReplaced = true;
+    }
+    private void HandleReplacingState()
+    {
+
+        MoveBlock(_destroyingPositionY);
+        if (transform.position.y == _destroyingPositionY)
+        {
+            _state = State.Destroying;
+        }
+        _isReplaced = false;
     }
 
     private void Block_OnPlayerLeavesBlock(object sender, System.EventArgs e)
@@ -100,19 +145,19 @@ public class Block : MonoBehaviour
     }
     private void DestroyBlock()
     {
+        _livingTime = 0;
+        _isCreated = true;
+        _playerLeftBlock = false;
         OnBlockDestroyed?.Invoke(this, EventArgs.Empty);
 
-        _livingTime = 0;
-        _playerLeftBlock = false;
         int _startY = BlocksSpawnPoints.startPositionY;
         Vector3 _startPosition = new Vector3(transform.position.x, _startY, transform.position.z);
         transform.position = _startPosition;
-        _state = State.Created;
+        _state = State.Creation;
     }
     public GameObject GetBlockVisual()
     {
         return _blockVisual;
     }
-
 }
 

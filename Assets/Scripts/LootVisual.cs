@@ -6,14 +6,18 @@ using UnityEngine;
 
 public class LootVisual : MonoBehaviour
 {
-    public event EventHandler OnLootTouched;
+    public static event EventHandler OnLootTouchedOnPosition;
+    
+
     public event EventHandler OnLootPicked;
+    public event EventHandler OnLootTouched;
 
     private void OnTriggerEnter(Collider other)
     {        
         if (other.gameObject.GetComponent<PlayerVisual>())
         {
-            OnLootTouched?.Invoke(this, EventArgs.Empty);            
+            OnLootTouchedOnPosition?.Invoke(this, EventArgs.Empty);
+            OnLootTouched?.Invoke(this, EventArgs.Empty);
 
             Debug.Log("OnCollider!!!!");
         }        

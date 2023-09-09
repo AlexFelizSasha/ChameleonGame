@@ -2414,6 +2414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockVisual: {fileID: 232459893}
+  _isCreated: 0
+  _isReplaced: 0
 --- !u!4 &1031812388
 Transform:
   m_ObjectHideFlags: 0
@@ -3127,6 +3129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockVisual: {fileID: 1275043538}
+  _isCreated: 0
+  _isReplaced: 0
 --- !u!4 &1254686925
 Transform:
   m_ObjectHideFlags: 0
@@ -3443,6 +3447,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockVisual: {fileID: 1052603201}
+  _isCreated: 0
+  _isReplaced: 0
 --- !u!4 &1334023762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5165590670477127250, guid: 25bcb54015a31da49ba020af57c28b24, type: 3}
@@ -3458,6 +3464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1343774859}
   - component: {fileID: 1343774860}
+  - component: {fileID: 1343774861}
   m_Layer: 0
   m_Name: LootCreator
   m_TagString: Untagged
@@ -3493,6 +3500,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lootPrefab: {fileID: 5540150156153864151, guid: 187264f347aac66449fccfc86f7ffab1, type: 3}
+--- !u!114 &1343774861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343774858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30158c63862ee5e469f6eb62174a8924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawningObject:
+  - {fileID: 5540150156153864151, guid: 187264f347aac66449fccfc86f7ffab1, type: 3}
 --- !u!1 &1409754139
 GameObject:
   m_ObjectHideFlags: 3
@@ -4186,6 +4207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockVisual: {fileID: 989973810}
+  _isCreated: 0
+  _isReplaced: 0
 --- !u!4 &1838712179
 Transform:
   m_ObjectHideFlags: 0
@@ -4232,6 +4255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockVisual: {fileID: 1729079149}
+  _isCreated: 0
+  _isReplaced: 0
 --- !u!4 &1943203987
 Transform:
   m_ObjectHideFlags: 0
@@ -4278,6 +4303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockVisual: {fileID: 858908293}
+  _isCreated: 0
+  _isReplaced: 0
 --- !u!4 &1984405453
 Transform:
   m_ObjectHideFlags: 0
@@ -4322,7 +4349,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.2858734, y: 3.577901, z: 0.19443893}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2005974355}
   m_Father: {fileID: 0}
