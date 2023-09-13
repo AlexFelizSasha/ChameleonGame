@@ -14,5 +14,7 @@ public class MaterialSOList : ScriptableObject
     public MaterialSO Violet;
     public MaterialSO Blue;
     public MaterialSO Orange;
+    public MaterialSO DarkBlue;
+    public MaterialSO Brown;
 }
 

@@ -44,7 +44,6 @@ public class LootCreator : MonoBehaviour
 
     private void LootVisual_OnLootTouchedOnPosition(object sender, System.EventArgs e)
     {
-        Debug.Log("CREATE LOOT NOW!");
         CreateLootOnMap();
     }
     private void Block_OnBlockReplacing(object sender, Block.OnBlockReplacingEventArgs e)
@@ -69,5 +68,6 @@ public class LootCreator : MonoBehaviour
             spawnedObject.transform.position = _lootPosition;
             spawnedObject.SetActive(true);
         }
+        _blockPositionList.Remove(_blockPosition);
     }
 }

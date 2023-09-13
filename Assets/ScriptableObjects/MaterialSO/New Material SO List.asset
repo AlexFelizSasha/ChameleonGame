@@ -21,3 +21,5 @@ MonoBehaviour:
   Violet: {fileID: 11400000, guid: 61fe89e610d0c2e4893e83fdb818dcf0, type: 2}
   Blue: {fileID: 11400000, guid: cc5f097546a92ad459eafc0e7eb46dc2, type: 2}
   Orange: {fileID: 11400000, guid: 0e6e0133be12d744b936113ad0f79a0b, type: 2}
+  DarkBlue: {fileID: 11400000, guid: f2b212196c1876040b125b547d1f030a, type: 2}
+  Brown: {fileID: 11400000, guid: 8fde502d5fff4f44c91f8c3fc65efa57, type: 2}

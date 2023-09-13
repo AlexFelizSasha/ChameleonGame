@@ -34,10 +34,11 @@ public class Block : MonoBehaviour
 
     private float _gamePlayPositionY = 1f;
     private float _destroyingPositionY = 20f;
-    private bool _playerLeftBlock = false;
-    private bool _playerIsOnBlock = false;
     private float _livingTime;
     private float _timeForFirstFlight = 1f;
+    private bool _playerLeftBlock = false;
+    private bool _playerIsOnBlock = false;
+
     public bool _isCreated = false;
     public bool _isReplaced = false;
 
@@ -123,6 +124,18 @@ public class Block : MonoBehaviour
         }
         _isReplaced = false;
     }
+    private void DestroyBlock()
+    {
+        _livingTime = 0;
+        _isCreated = true;
+        _playerLeftBlock = false;
+        OnBlockDestroyed?.Invoke(this, EventArgs.Empty);
+
+        int _startY = BlocksSpawnPoints.startPositionY;
+        Vector3 _startPosition = new Vector3(transform.position.x, _startY, transform.position.z);
+        transform.position = _startPosition;
+        _state = State.Creation;
+    }
 
     private void Block_OnPlayerLeavesBlock(object sender, System.EventArgs e)
     {
@@ -142,18 +155,6 @@ public class Block : MonoBehaviour
         float _moveDistance = _blockFlySpeed * Time.deltaTime;
         Vector3 _pointToMove = new Vector3(transform.position.x, positionY, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, _pointToMove, _moveDistance);
-    }
-    private void DestroyBlock()
-    {
-        _livingTime = 0;
-        _isCreated = true;
-        _playerLeftBlock = false;
-        OnBlockDestroyed?.Invoke(this, EventArgs.Empty);
-
-        int _startY = BlocksSpawnPoints.startPositionY;
-        Vector3 _startPosition = new Vector3(transform.position.x, _startY, transform.position.z);
-        transform.position = _startPosition;
-        _state = State.Creation;
     }
     public GameObject GetBlockVisual()
     {
