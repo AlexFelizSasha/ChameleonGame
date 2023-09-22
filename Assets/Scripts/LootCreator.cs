@@ -10,8 +10,6 @@ public class LootCreator : MonoBehaviour
     private LootPool _lootPool;
     private int _lootAmount = 8;
     private int _startPositionY = 1;
-    private float _spawnTime = 3f;
-    private float _liveTime;
 
     private void Awake()
     {
@@ -26,23 +24,11 @@ public class LootCreator : MonoBehaviour
         }
         _blockPositionList.Clear();
 
-        LootVisual.OnLootTouchedOnPosition += LootVisual_OnLootTouchedOnPosition;
         Block.OnBlockIdle += Block_OnBlockIdle;
         Block.OnBlockReplacing += Block_OnBlockReplacing;
-
-        _liveTime = -8;
+        Loot.OnLootDestroyed += Loot_OnLootDestroyed;
     }
-    private void Update()
-    {
-        //_liveTime += Time.deltaTime;
-        //if (_liveTime > _spawnTime)
-        //{
-        //    CreateLootOnMap();
-        //    _liveTime = 0;
-        //}
-    }
-
-    private void LootVisual_OnLootTouchedOnPosition(object sender, System.EventArgs e)
+    private void Loot_OnLootDestroyed(object sender, Loot.OnLootDroppedEventArgs e)
     {
         CreateLootOnMap();
     }
@@ -68,6 +54,5 @@ public class LootCreator : MonoBehaviour
             spawnedObject.transform.position = _lootPosition;
             spawnedObject.SetActive(true);
         }
-        _blockPositionList.Remove(_blockPosition);
     }
 }

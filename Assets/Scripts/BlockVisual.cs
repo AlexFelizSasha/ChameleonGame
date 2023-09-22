@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class BlockVisual : MonoBehaviour
 {
-    public event EventHandler OnPlayerIsOnBlock;
-    public event EventHandler OnPlayerLeavesBlock;
     [SerializeField] private GameObject _parentBlock;
     [SerializeField] private List<MaterialSO> _materialSOList;
+    [SerializeField] private GameObject _cloud;
+
+    public event EventHandler OnPlayerIsOnBlock;
+    public event EventHandler OnPlayerLeavesBlock;
 
     private SearchingBlockColor _searchingBlockColor;
 
@@ -20,20 +22,17 @@ public class BlockVisual : MonoBehaviour
     }
     private void Start()
     {
-        _parentBlock.GetComponent<Block>().OnBlockDestroyed += BlockVisual_OnBlockDestroyed;
+        _parentBlock.gameObject.GetComponent<Block>().OnBlockDestroyed += BlockVisual_OnBlockDestroyed;
     }
-
     private void BlockVisual_OnBlockDestroyed(object sender, EventArgs e)
     {
         SetBlockColor(_materialSOList[UnityEngine.Random.Range(0, _materialSOList.Count)]);
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerRadar>())
         {
             OnPlayerIsOnBlock?.Invoke(this, EventArgs.Empty);
-            Debug.Log("BlockVisual sees player");
         }
     }
     private void OnTriggerExit(Collider other)
@@ -41,16 +40,20 @@ public class BlockVisual : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerRadar>())
         {
             OnPlayerLeavesBlock?.Invoke(this, EventArgs.Empty);
-            Debug.Log("BlockVisual sees player leaves");
         }
     }
     private void SetBlockColor(MaterialSO materialSO)
     {
         Material _material = materialSO.Material;
         var _renderer = gameObject.GetComponent<MeshRenderer>();
-        var _playerMaterials = _renderer.materials;
-        _playerMaterials[0] = _material;
-        _renderer.materials = _playerMaterials;
+        var _blockMaterials = _renderer.materials;
+        _blockMaterials[0] = _material;
+        _renderer.materials = _blockMaterials;
+
+        var _cloudRenderer = _cloud.gameObject.GetComponent<MeshRenderer>();
+        var _cloudMaterials = _cloudRenderer.materials;
+        _cloudMaterials[0] = _material;
+        _cloudRenderer.materials = _cloudMaterials;
     }
     private void ChangingSameColors()
     {

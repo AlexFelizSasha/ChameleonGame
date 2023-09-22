@@ -4,100 +4,160 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Loot : MonoBehaviour
-{
+{  
     public static event EventHandler<OnLootScoreAddEventArgs> OnLootScoreAdd;
     public class OnLootScoreAddEventArgs : EventArgs
     {
         public int lootScore;
     }
+    public static event EventHandler<OnLootDroppedEventArgs> OnLootDestroyed;
+    public class OnLootDroppedEventArgs : EventArgs
+    {
+        public Vector2 lootPosition;
+    }
 
-    [SerializeField] private GameObject _lootVisual;
+    public event EventHandler OnLootDropped;
+
+    [SerializeField] private LootVisual _lootVisual;
 
     [SerializeField] private List<MaterialSO> _materialSOList;
-    
-    private enum State
+
+    public enum State
     {
         Creation,
         MinimumSize,
         MediumSize,
         MaximumSize,
-        OverSize
+        Dropping
     }
 
-    private State _state;
-    private float _fallingSpeed = 6.0f;
-    private bool _isTouched = false;
-    private bool _isPicked = false;
+    public State lootState { get; private set; }
+    private float _fallingSpeed;
     private int _downPointY = -25;   //how low loot falls down
     private int _lootScore;
+
     private float _livingTime;
-    private float _minimumSizeTime = 5f;
-    private float _mediumSizeTime = 15f;
-    private float _maximumSizeTime = 25f;
-    private float _overSizeTime = 30f;
+    private float _minimumSizeTimeMin = 1f;
+    private float _minimumSizeTimeMax = 3f;
+    private float _minimumSizeTime;
+    private float _mediumSizeTimeMin = 8f;
+    private float _mediumSizeTimeMax = 16f;
+    private float _mediumSizeTime;
+    private float _maximumSizeTimeMin = 20f;
+    private float _maximumSizeTimeMax = 36f;
+    private float _maximumSizeTime;
+    private float _overSizeTimeMin = 40f;
+    private float _overSizeTimeMax = 56f;
+    private float _overSizeTime;
+
+    private void OnEnable()
+    {
+        lootState = State.Creation;
+    }
 
     private void Start()
     {
-        _state = State.Creation;
+        CountStateTime();
+
         _lootScore = 0;
         _livingTime = 0;
-        _lootVisual.GetComponent<LootVisual>().OnLootTouched += Loot_OnLootTouched;
-        _lootVisual.GetComponent<LootVisual>().OnLootPicked += Loot_OnLootPicked;
+        
+        _lootVisual.OnLootTouched += Loot_OnLootTouched;
+        _lootVisual.OnLootPicked += Loot_OnLootPicked;
+        _lootVisual.OnLootOnTheGround += Loot_OnLootOnTheGround;
     }
+
 
     private void Update()
     {
         _livingTime += Time.deltaTime;
-        if (_isTouched)
-        {
-            DropDownLoot();
-        }
-        if (_isPicked)
-        {
-            DestroyLoot();
-        }
 
-        switch (_state)
+        switch (lootState)
         {
             case State.Creation:
-                _lootScore = 1;
-                if (_livingTime > _minimumSizeTime)
-                    _state = State.MinimumSize;
+                HandleCreationState();
                 break;
             case State.MinimumSize:
-                _lootScore = 2;
-                if (_livingTime > _mediumSizeTime)
-                    _state = State.MediumSize;
+                HandleMinimumSizeState();
                 break;
             case State.MediumSize:
                 _lootScore = 3;
-                if (_livingTime > _maximumSizeTime)
-                    _state = State.MaximumSize;
+                HandleMediumSizeState();
                 break;
             case State.MaximumSize:
-                _lootScore = 5;
-                if (_livingTime > _overSizeTime)
-                    _state = State.OverSize;
+                HandleMaximumSizeState();
                 break;
-            case State.OverSize:
-                _lootScore = 15;
-                _isTouched = true;
+            case State.Dropping:
+                HandleDroppingState();
                 break;
         }
     }
+    public int GetLootScore()
+    {
+        return _lootScore;
+    }
+
     private void Loot_OnLootPicked(object sender, System.EventArgs e)
     {
-        _isPicked = true;
+        DestroyLoot();
         OnLootScoreAdd?.Invoke(this, new OnLootScoreAddEventArgs
         {
-            lootScore = _lootScore
+            lootScore = _lootScore,
         });
     }
     private void Loot_OnLootTouched(object sender, System.EventArgs e)
     {
-        _isTouched = true;
-
-        Debug.Log("Loot Touched!");
+        lootState = State.Dropping;
+        OnLootDropped?.Invoke(this, EventArgs.Empty);
+    }
+    private void Loot_OnLootOnTheGround(object sender, EventArgs e)
+    {
+        DestroyLoot();
+    }
+    private void CountStateTime()
+    {
+        _minimumSizeTime = UnityEngine.Random.Range(_minimumSizeTimeMin, _minimumSizeTimeMax);
+        _mediumSizeTime = UnityEngine.Random.Range(_mediumSizeTimeMin, _mediumSizeTimeMax);
+        _maximumSizeTime = UnityEngine.Random.Range(_maximumSizeTimeMin, _maximumSizeTimeMax);
+        _overSizeTime = UnityEngine.Random.Range(_overSizeTimeMin, _overSizeTimeMax);
+    }
+    private void HandleCreationState()
+    {
+        _lootScore = 1;
+        if (_livingTime > _minimumSizeTime)
+        {
+            lootState = State.MinimumSize;
+        }
+    }
+    private void HandleMinimumSizeState()
+    {
+        _lootScore = 2;
+        if (_livingTime > _mediumSizeTime)
+        {
+            lootState = State.MediumSize;
+        }
+    }
+    private void HandleMediumSizeState()
+    {
+        _lootScore = 3;
+        if (_livingTime > _maximumSizeTime)
+        {
+            lootState = State.MaximumSize;
+        }
+    }
+    private void HandleMaximumSizeState()
+    {
+        _lootScore = 5;
+        if (_livingTime > _overSizeTime)
+        {
+            _lootScore = 0;
+            lootState = State.Dropping;
+        }
+    }
+    private void HandleDroppingState()
+    {
+        _fallingSpeed = 6f;
+        DropDownLoot();
     }
     private void DropDownLoot()
     {
@@ -108,8 +168,13 @@ public class Loot : MonoBehaviour
     }
     private void DestroyLoot()
     {
-        _isTouched = false;
-        _isPicked = false;        
+        OnLootDestroyed?.Invoke(this, new OnLootDroppedEventArgs
+        {
+            lootPosition = transform.position
+        });
+        _fallingSpeed = 0;
+        _livingTime = 0;
+        
         gameObject.SetActive(false);
     }
 }

@@ -12,7 +12,6 @@ public class ScoreManager : MonoBehaviour
     }
 
     private int _score;
-    private int _lootScore = 5;
 
     private void Start()
     {

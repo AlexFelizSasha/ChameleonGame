@@ -5,18 +5,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LootVisual : MonoBehaviour
-{
-    public static event EventHandler OnLootTouchedOnPosition;
-    
-
+{ 
     public event EventHandler OnLootPicked;
     public event EventHandler OnLootTouched;
+    public event EventHandler OnLootOnTheGround;
 
     private void OnTriggerEnter(Collider other)
     {        
         if (other.gameObject.GetComponent<PlayerVisual>())
         {
-            OnLootTouchedOnPosition?.Invoke(this, EventArgs.Empty);
             OnLootTouched?.Invoke(this, EventArgs.Empty);
 
             Debug.Log("OnCollider!!!!");
@@ -26,6 +23,11 @@ public class LootVisual : MonoBehaviour
             OnLootPicked?.Invoke(this, EventArgs.Empty);            
 
             Debug.Log("InBaggage!!!!");
+        }
+        if (other.gameObject.GetComponent<GroundVisual>())
+        {
+            OnLootOnTheGround?.Invoke(this, EventArgs.Empty);
+            Debug.Log("Loot on the ground");
         }
     }
 }

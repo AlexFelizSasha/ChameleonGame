@@ -23,7 +23,7 @@ public class BlocksCreator : MonoBehaviour
         _blocksOnMapList = new List<GameObject>();
         _blocksPositionList = new List<Vector3>();
         BlockSideSize = 5;
-        BlocksSquareSideSize = 6;
+        BlocksSquareSideSize = 5;
     }
     private void Start()
     {
