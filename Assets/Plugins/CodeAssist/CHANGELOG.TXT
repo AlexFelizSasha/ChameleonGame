@@ -1,5 +1,17 @@
 List of new features, bug fixes and improvements
 
+# Version 1.1.9
+* Gpt support for chat and edit
+* More options added for Gpt
+* Overall stability improvements
+* Exporter shows file locks if update/export is unsuccessful
+
+# Version 1.1.8
+* Bugfix for non-Unity solutions
+
+# Version 1.1.7
+* Bugfix for Visual Studio freeze
+
 # Version 1.1.6
 * Gpt support added for shader files
 * Stability improvements for Unity.ScriptFinder

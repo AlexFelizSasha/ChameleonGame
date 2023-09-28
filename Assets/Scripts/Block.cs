@@ -18,7 +18,7 @@ public class Block : MonoBehaviour
 
     public event EventHandler OnBlockDestroyed;
     [SerializeField] private GameObject _blockVisual;
-    public enum State
+    public enum BlockState
     {
         Creation,
         FirstFlight,
@@ -28,7 +28,7 @@ public class Block : MonoBehaviour
         Destroying
     }
 
-    public State state { get; private set; }
+    public BlockState blockState { get; private set; }
     private float _blockFlySpeedMin = 1f;
     private float _blockFlySpeedMax = 5f;
 
@@ -45,7 +45,7 @@ public class Block : MonoBehaviour
 
     private void Start()
     {
-        state = State.Creation;
+        blockState = BlockState.Creation;
         _livingTime = 0;
         _blockVisual.GetComponent<BlockVisual>().OnPlayerIsOnBlock += Block_OnPlayerIsOnBlock;
         _blockVisual.GetComponent<BlockVisual>().OnPlayerLeavesBlock += Block_OnPlayerLeavesBlock;
@@ -54,24 +54,24 @@ public class Block : MonoBehaviour
     private void Update()
     {
         _livingTime += Time.deltaTime;
-        switch (state)
+        switch (blockState)
         {
-            case State.Creation:
+            case BlockState.Creation:
                 HandleCreationState();
                 break;
-            case State.FirstFlight:
+            case BlockState.FirstFlight:
                 HandleFirstFlightState();
                 break;
-            case State.Idle:
+            case BlockState.Idle:
                 HandleIdleState();
                 break;
-            case State.WithPlayer:
+            case BlockState.WithPlayer:
                 HandleWithPlayerState();
                 break;
-            case State.Replacing:
+            case BlockState.Replacing:
                 HandleReplacingState();
                 break;
-            case State.Destroying:
+            case BlockState.Destroying:
                 DestroyBlock();
                 break;
         }
@@ -80,7 +80,7 @@ public class Block : MonoBehaviour
     {
         if (_livingTime > _timeForFirstFlight)
         {
-            state = State.FirstFlight;
+            blockState = BlockState.FirstFlight;
         }
     }
     private void HandleFirstFlightState()
@@ -93,7 +93,7 @@ public class Block : MonoBehaviour
                 blockPosition = transform.position
             });
             isIdle = true;
-            state = State.Idle;
+            blockState = BlockState.Idle;
         }
         isCreated = false;
     }
@@ -101,7 +101,7 @@ public class Block : MonoBehaviour
     {          
         if (_playerIsOnBlock)
         {
-            state = State.WithPlayer;
+            blockState = BlockState.WithPlayer;
             isIdle = false;
         }
     }
@@ -113,7 +113,7 @@ public class Block : MonoBehaviour
             {
                 blockPosition = transform.position
             });
-            state = State.Replacing;
+            blockState = BlockState.Replacing;
         }
         isReplaced = true;
     }
@@ -123,7 +123,7 @@ public class Block : MonoBehaviour
         MoveBlock(_destroyingPositionY);
         if (transform.position.y == _destroyingPositionY)
         {
-            state = State.Destroying;
+            blockState = BlockState.Destroying;
         }
         isReplaced = false;
     }
@@ -137,7 +137,7 @@ public class Block : MonoBehaviour
         int _startY = BlocksSpawnPoints.startPositionY;
         Vector3 _startPosition = new Vector3(transform.position.x, _startY, transform.position.z);
         transform.position = _startPosition;
-        state = State.Creation;
+        blockState = BlockState.Creation;
     }
 
     private void Block_OnPlayerLeavesBlock(object sender, System.EventArgs e)

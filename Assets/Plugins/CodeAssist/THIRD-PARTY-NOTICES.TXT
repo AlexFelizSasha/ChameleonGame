@@ -1173,6 +1173,10 @@ P. Community.VisualStudio.Toolkit.17
 Apache-2.0
 https://github.com/VsixCommunity/Community.VisualStudio.Toolkit/blob/master/LICENSE
 
+Q. Diffplex
+Apache-2.0
+https://github.com/mmanela/diffplex/blob/master/License.txt
+
 -------------------------------
                                  Apache License
                            Version 2.0, January 2004
@@ -1354,7 +1358,7 @@ https://github.com/VsixCommunity/Community.VisualStudio.Toolkit/blob/master/LICE
 
 
 
-Q. EditorCoroutines
+R. EditorCoroutines
 Unity Companion License
 https://unity.com/legal/licenses/unity-companion-license
 

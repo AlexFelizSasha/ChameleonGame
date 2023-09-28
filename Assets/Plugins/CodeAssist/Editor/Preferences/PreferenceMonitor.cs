@@ -288,10 +288,17 @@ namespace Meryel.UnityCodeAssist.Editor.Preferences
                 values[i] = string.Empty;
                 if (isPlayerPrefs)
                 {
-                    // EditorPrefs gives error for some keys
-                    Serilog.Log.Error("Invalid {PreferenceType} '{Key}' at {Location}, str:{StringValue}, int:{IntegerValue}, float:{FloatValue}, bool:{BooleanValue}",
-                        (isPlayerPrefs ? "PlayerPrefs" : "EditorPrefs"), key, nameof(GetKeyValues),
-                        stringValue, intValue, floatValue, boolValue);
+                    // Keys with ? causing problems, just ignore them
+                    if (key.Contains("?"))
+                        Serilog.Log.Debug("Invalid {PreferenceType} KEY WITH '?', '{Key}' at {Location}, str:{StringValue}, int:{IntegerValue}, float:{FloatValue}, bool:{BooleanValue}",
+                            (isPlayerPrefs ? "PlayerPrefs" : "EditorPrefs"), key, nameof(GetKeyValues),
+                            stringValue, intValue, floatValue, boolValue);
+
+                    else
+                        // EditorPrefs gives error for some keys
+                        Serilog.Log.Error("Invalid {PreferenceType} '{Key}' at {Location}, str:{StringValue}, int:{IntegerValue}, float:{FloatValue}, bool:{BooleanValue}",
+                            (isPlayerPrefs ? "PlayerPrefs" : "EditorPrefs"), key, nameof(GetKeyValues),
+                            stringValue, intValue, floatValue, boolValue);
                 }
             }
 

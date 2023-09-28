@@ -167,9 +167,9 @@ namespace Meryel.UnityCodeAssist.Editor
         {
             if (obj == null)
                 return;
-            else if (obj is GameObject go)
+            else if (obj is GameObject go && go)
                 SetDirty(go);
-            else if (obj is Component component)
+            else if (obj is Component component && component)
                 SetDirty(component.gameObject);
             //else
                 //;//**--scriptable obj

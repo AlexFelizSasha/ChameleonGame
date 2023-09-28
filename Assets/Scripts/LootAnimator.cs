@@ -26,32 +26,31 @@ public class LootAnimator : MonoBehaviour
         _lootAnimator = GetComponent<Animator>();
         _loot.OnLootDropped += Loot_OnLootDropped;
     }
+    private void Update()
+    {
+        if (_lootAnimator != null)
+        {
+            if(_loot.lootState == Loot.LootState.MinimumSize)
+                _lootAnimator.SetBool(LOOT_CREATION, true);
+            else _lootAnimator.SetBool(LOOT_CREATION, false);
 
+            if(_loot.lootState == Loot.LootState.MediumSize)
+                _lootAnimator.SetBool(LOOT_MEDIUM, true);
+            else _lootAnimator.SetBool(LOOT_MEDIUM, false);
+
+            if(_loot.lootState == Loot.LootState.MaximumSize)
+                _lootAnimator.SetBool(LOOT_MAXIMUM, true);
+            else _lootAnimator.SetBool(LOOT_MAXIMUM, false);
+
+            if(_loot.lootState == Loot.LootState.Dropping)
+                _lootAnimator.SetBool(LOOT_FALLS_DOWN, true);
+            else _lootAnimator.SetBool(LOOT_FALLS_DOWN, false);
+        }
+    }
     private void Loot_OnLootDropped(object sender, System.EventArgs e)
     {
         _crystal.SetActive(false);
         _drop.SetActive(true);
     }
 
-    private void Update()
-    {
-        if (_lootAnimator != null)
-        {
-            if(_loot.lootState == Loot.State.MinimumSize)
-                _lootAnimator.SetBool(LOOT_CREATION, true);
-            else _lootAnimator.SetBool(LOOT_CREATION, false);
-
-            if(_loot.lootState == Loot.State.MediumSize)
-                _lootAnimator.SetBool(LOOT_MEDIUM, true);
-            else _lootAnimator.SetBool(LOOT_MEDIUM, false);
-
-            if(_loot.lootState == Loot.State.MaximumSize)
-                _lootAnimator.SetBool(LOOT_MAXIMUM, true);
-            else _lootAnimator.SetBool(LOOT_MAXIMUM, false);
-
-            if(_loot.lootState == Loot.State.Dropping)
-                _lootAnimator.SetBool(LOOT_FALLS_DOWN, true);
-            else _lootAnimator.SetBool(LOOT_FALLS_DOWN, false);
-        }
-    }
 }

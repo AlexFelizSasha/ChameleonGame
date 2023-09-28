@@ -22,7 +22,7 @@ public class Loot : MonoBehaviour
 
     [SerializeField] private List<MaterialSO> _materialSOList;
 
-    public enum State
+    public enum LootState
     {
         Creation,
         MinimumSize,
@@ -31,7 +31,7 @@ public class Loot : MonoBehaviour
         Dropping
     }
 
-    public State lootState { get; private set; }
+    public LootState lootState { get; private set; }
     private float _fallingSpeed;
     private int _downPointY = -25;   //how low loot falls down
     private int _lootScore;
@@ -52,7 +52,7 @@ public class Loot : MonoBehaviour
 
     private void OnEnable()
     {
-        lootState = State.Creation;
+        lootState = LootState.Creation;
     }
 
     private void Start()
@@ -74,20 +74,20 @@ public class Loot : MonoBehaviour
 
         switch (lootState)
         {
-            case State.Creation:
+            case LootState.Creation:
                 HandleCreationState();
                 break;
-            case State.MinimumSize:
+            case LootState.MinimumSize:
                 HandleMinimumSizeState();
                 break;
-            case State.MediumSize:
+            case LootState.MediumSize:
                 _lootScore = 3;
                 HandleMediumSizeState();
                 break;
-            case State.MaximumSize:
+            case LootState.MaximumSize:
                 HandleMaximumSizeState();
                 break;
-            case State.Dropping:
+            case LootState.Dropping:
                 HandleDroppingState();
                 break;
         }
@@ -107,7 +107,7 @@ public class Loot : MonoBehaviour
     }
     private void Loot_OnLootTouched(object sender, System.EventArgs e)
     {
-        lootState = State.Dropping;
+        lootState = LootState.Dropping;
         OnLootDropped?.Invoke(this, EventArgs.Empty);
     }
     private void Loot_OnLootOnTheGround(object sender, EventArgs e)
@@ -126,7 +126,7 @@ public class Loot : MonoBehaviour
         _lootScore = 1;
         if (_livingTime > _minimumSizeTime)
         {
-            lootState = State.MinimumSize;
+            lootState = LootState.MinimumSize;
         }
     }
     private void HandleMinimumSizeState()
@@ -134,7 +134,7 @@ public class Loot : MonoBehaviour
         _lootScore = 2;
         if (_livingTime > _mediumSizeTime)
         {
-            lootState = State.MediumSize;
+            lootState = LootState.MediumSize;
         }
     }
     private void HandleMediumSizeState()
@@ -142,7 +142,7 @@ public class Loot : MonoBehaviour
         _lootScore = 3;
         if (_livingTime > _maximumSizeTime)
         {
-            lootState = State.MaximumSize;
+            lootState = LootState.MaximumSize;
         }
     }
     private void HandleMaximumSizeState()
@@ -151,7 +151,7 @@ public class Loot : MonoBehaviour
         if (_livingTime > _overSizeTime)
         {
             _lootScore = 0;
-            lootState = State.Dropping;
+            lootState = LootState.Dropping;
         }
     }
     private void HandleDroppingState()

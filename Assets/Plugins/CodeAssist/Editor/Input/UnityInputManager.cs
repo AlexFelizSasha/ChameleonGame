@@ -44,6 +44,11 @@ namespace Meryel.UnityCodeAssist.Editor.Input
                         // like this https://github.com/Unity-Technologies/UnityDataTools
                         // or this https://github.com/SeriousCache/UABE
                         var converted = GetOrCreateConvertedFile(yamlPath);
+                        if (!File.Exists(converted))
+                        {
+                            Serilog.Log.Warning("Temp file {TempFile} couldn't found for converted yaml input file. Auto Input Manager will not work!", converted);
+                            return;
+                        }
                         var rawLines = File.ReadLines(converted);
                         var yamlText = Text2Yaml.Convert(rawLines);
                         reader = new StringReader(yamlText);
@@ -58,6 +63,11 @@ namespace Meryel.UnityCodeAssist.Editor.Input
                         if (hasSemanticError)
                         {
                             var converted = GetOrCreateConvertedFile(yamlPath);
+                            if (!File.Exists(converted))
+                            {
+                                Serilog.Log.Warning("Temp file {TempFile} couldn't found for converted yaml input file. Auto Input Manager will not work!", converted);
+                                return;
+                            }
                             var rawLines = File.ReadLines(converted);
                             var yamlText = Text2Yaml.Convert(rawLines);
                             reader = new StringReader(yamlText);
