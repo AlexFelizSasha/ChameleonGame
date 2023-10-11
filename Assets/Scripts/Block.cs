@@ -10,14 +10,21 @@ public class Block : MonoBehaviour
     {
         public Vector3 blockPosition;
     }
+    public event EventHandler OnBlockIdleForVisual;
+    public event EventHandler OnBlockDestroyedForVisual;
     public static event EventHandler<OnBlockIdleEventArgs> OnBlockIdle;
     public class OnBlockIdleEventArgs : EventArgs
     {
         public Vector3 blockPosition;
     }
 
-    public event EventHandler OnBlockDestroyed;
-    [SerializeField] private GameObject _blockVisual;
+    public static event EventHandler<OnBlockDestroyedEventArgs> OnBlockDestroyed;
+    public class OnBlockDestroyedEventArgs : EventArgs
+    {
+        public Vector3 blockPosition;
+    }
+    [SerializeField] private GameObject _blockVisualObj;
+
     public enum BlockState
     {
         Creation,
@@ -43,12 +50,13 @@ public class Block : MonoBehaviour
     public bool isReplaced = false;
     public bool isIdle = false;
 
+
     private void Start()
     {
         blockState = BlockState.Creation;
         _livingTime = 0;
-        _blockVisual.GetComponent<BlockVisual>().OnPlayerIsOnBlock += Block_OnPlayerIsOnBlock;
-        _blockVisual.GetComponent<BlockVisual>().OnPlayerLeavesBlock += Block_OnPlayerLeavesBlock;
+        _blockVisualObj.GetComponent<BlockVisual>().OnPlayerIsOnBlock += Block_OnPlayerIsOnBlock;
+        _blockVisualObj.GetComponent<BlockVisual>().OnPlayerLeavesBlock += Block_OnPlayerLeavesBlock;
     }
 
     private void Update()
@@ -92,6 +100,7 @@ public class Block : MonoBehaviour
             {
                 blockPosition = transform.position
             });
+            OnBlockIdleForVisual?.Invoke(this, EventArgs.Empty);
             isIdle = true;
             blockState = BlockState.Idle;
         }
@@ -123,6 +132,13 @@ public class Block : MonoBehaviour
         MoveBlock(_destroyingPositionY);
         if (transform.position.y == _destroyingPositionY)
         {
+
+            OnBlockDestroyed?.Invoke(this, new OnBlockDestroyedEventArgs
+            {
+                blockPosition = transform.position
+            });
+
+            OnBlockDestroyedForVisual?.Invoke(this, EventArgs.Empty);
             blockState = BlockState.Destroying;
         }
         isReplaced = false;
@@ -132,7 +148,6 @@ public class Block : MonoBehaviour
         _livingTime = 0;
         isCreated = true;
         _playerLeftBlock = false;
-        OnBlockDestroyed?.Invoke(this, EventArgs.Empty);
 
         int _startY = BlocksSpawnPoints.startPositionY;
         Vector3 _startPosition = new Vector3(transform.position.x, _startY, transform.position.z);
@@ -149,7 +164,7 @@ public class Block : MonoBehaviour
     private void Block_OnPlayerIsOnBlock(object sender, System.EventArgs e)
     {
         _playerIsOnBlock = true;
-        Debug.Log("Block sees player");
+        //Debug.Log("Block sees player");
     }
     private void MoveBlock(float positionY)
     {
@@ -160,7 +175,7 @@ public class Block : MonoBehaviour
     }
     public GameObject GetBlockVisual()
     {
-        return _blockVisual;
+        return _blockVisualObj;
     }
 }
 

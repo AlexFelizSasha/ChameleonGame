@@ -1,18 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WateringMachine : MonoBehaviour
 {
+    public event EventHandler OnStartWatering;
+    public event EventHandler OnStopWatering;
+
     [SerializeField] private List<Transform> _machineRoutePoints;
     private float _moveSpeed = 3f;
 
     private enum MachineState
     {
         Idle,
-        SimpleMove,
+        StartMove,
         MoveAndWater,
-        MoveBackAndWater,
+        MoveBackAfterWater,
         MoveToWaterBarrel
     }
     private MachineState _machineState;
@@ -30,19 +34,25 @@ public class WateringMachine : MonoBehaviour
                 if (transform.position == _machineRoutePoints[0].position)
                     SetMachineDirection(_machineRoutePoints[1].position);
                 if (WaterBarrel.isFull)
-                    _machineState = MachineState.SimpleMove;
+                    _machineState = MachineState.StartMove;
                 break;
-            case MachineState.SimpleMove:
+            case MachineState.StartMove:
                 MoveToPosition(_machineRoutePoints[1].position);
                 if (transform.position == _machineRoutePoints[1].position)
+                {
                     _machineState = MachineState.MoveAndWater;
+                    OnStartWatering?.Invoke(this, EventArgs.Empty);
+                }
                 break;
             case MachineState.MoveAndWater:
                 MoveToPosition(_machineRoutePoints[2].position);
                 if (transform.position == _machineRoutePoints[2].position)
-                    _machineState = MachineState.MoveBackAndWater;
+                {
+                    _machineState = MachineState.MoveBackAfterWater;
+                    OnStopWatering?.Invoke(this, EventArgs.Empty);
+                }
                 break;
-            case MachineState.MoveBackAndWater:
+            case MachineState.MoveBackAfterWater:
                 MoveToPosition(_machineRoutePoints[1].position);
                 if (transform.position == _machineRoutePoints[1].position)
                     _machineState = MachineState.MoveToWaterBarrel;

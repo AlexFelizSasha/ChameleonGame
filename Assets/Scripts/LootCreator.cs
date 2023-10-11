@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LootCreator : MonoBehaviour
@@ -17,7 +18,8 @@ public class LootCreator : MonoBehaviour
     }
     private void Start()
     {
-        _blockPositionList = BlocksCreator.Instance.GetBlocksOnMapPositionList();
+        _blockPositionList = BlocksCreator.Instance.GetBlocksOnMapPositionList().ToList();
+        //Debug.Log(_blockPositionList.Count + " Loot amount");
         for (int i = 0; i < _lootAmount; i++)
         {
             CreateLootOnMap();

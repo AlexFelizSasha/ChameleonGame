@@ -16,18 +16,18 @@ public class LootVisual : MonoBehaviour
         {
             OnLootTouched?.Invoke(this, EventArgs.Empty);
 
-            Debug.Log("OnCollider!!!!");
+            //Debug.Log("OnCollider!!!!");
         }        
         if (other.gameObject.GetComponent<BaggageVisual>())
         {
             OnLootPicked?.Invoke(this, EventArgs.Empty);            
 
-            Debug.Log("InBaggage!!!!");
+            //Debug.Log("InBaggage!!!!");
         }
         if (other.gameObject.GetComponent<GroundVisual>())
         {
             OnLootOnTheGround?.Invoke(this, EventArgs.Empty);
-            Debug.Log("Loot on the ground");
+            //Debug.Log("Loot on the ground");
         }
     }
 }

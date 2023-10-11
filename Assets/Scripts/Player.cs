@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         var _playerMaterials = _renderer.materials;
         _playerMaterials[0] = _material;
         _renderer.materials = _playerMaterials;
-        Debug.Log("Color Changed to " + materialSO.Color);
+        //Debug.Log("Color Changed to " + materialSO.Color);
     }
     private void ChangeDirectionToChosenColor()
     {

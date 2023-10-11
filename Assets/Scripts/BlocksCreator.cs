@@ -27,6 +27,7 @@ public class BlocksCreator : MonoBehaviour
     }
     private void Start()
     {
+        //Debug.Log("blocks Creator");
         SetSpawnCoordinates();
         PutBlocksSquareOnMap();
     }
@@ -65,6 +66,7 @@ public class BlocksCreator : MonoBehaviour
     }
     public List<Vector3> GetBlocksOnMapPositionList()
     {
-        return _blocksPositionList;
+        List<Vector3> _positionList = _blocksPositionList;
+        return _positionList;
     }
 }

@@ -17,16 +17,25 @@ public class BlockVisual : MonoBehaviour
     private void Awake()
     {
         _searchingBlockColor = GetComponent<SearchingBlockColor>();
-        SetBlockColor(_materialSOList[UnityEngine.Random.Range(0, _materialSOList.Count)]);
-        ChangingSameColors();
+        SetBlockColor(_materialSOList[0]);
+        //SetBlockColor(_materialSOList[UnityEngine.Random.Range(0, _materialSOList.Count)]);
+        //ChangingSameColors();
     }
     private void Start()
     {
-        _parentBlock.gameObject.GetComponent<Block>().OnBlockDestroyed += BlockVisual_OnBlockDestroyed;
+        _parentBlock.gameObject.GetComponent<Block>().OnBlockIdleForVisual += BlockVisual_OnBlockIdleForVisual;
+        _parentBlock.gameObject.GetComponent<Block>().OnBlockDestroyedForVisual += BlockVisual_OnBlockDestroyedForVisual;
     }
-    private void BlockVisual_OnBlockDestroyed(object sender, EventArgs e)
+
+    private void BlockVisual_OnBlockDestroyedForVisual(object sender, EventArgs e)
     {
-        SetBlockColor(_materialSOList[UnityEngine.Random.Range(0, _materialSOList.Count)]);
+        SetBlockColor(_materialSOList[0]);
+    }
+
+    private void BlockVisual_OnBlockIdleForVisual(object sender, EventArgs e)
+    {
+        SetBlockColor(_materialSOList[UnityEngine.Random.Range(1, _materialSOList.Count)]);
+        ChangingSameColors();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -55,12 +64,12 @@ public class BlockVisual : MonoBehaviour
         _cloudMaterials[0] = _material;
         _cloudRenderer.materials = _cloudMaterials;
     }
-    private void ChangingSameColors()
+    public void ChangingSameColors()
     {
         Block _sameColorBlock = _searchingBlockColor.FindSameColorBlock(transform);
         if (_sameColorBlock != null)
         {
-            SetBlockColor(_materialSOList[UnityEngine.Random.Range(0, _materialSOList.Count)]);
+            SetBlockColor(_materialSOList[UnityEngine.Random.Range(1, _materialSOList.Count)]);
         }
     }
     public GameObject GetParentBlock()

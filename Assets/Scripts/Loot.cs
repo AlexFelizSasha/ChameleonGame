@@ -17,6 +17,7 @@ public class Loot : MonoBehaviour
     }
 
     public event EventHandler OnLootDropped;
+    public event EventHandler OnLootFalls;
 
     [SerializeField] private LootVisual _lootVisual;
 
@@ -33,12 +34,13 @@ public class Loot : MonoBehaviour
 
     public LootState lootState { get; private set; }
     private float _fallingSpeed;
+    private float _snowFallingSpeed = 5f;
     private int _downPointY = -25;   //how low loot falls down
     private int _lootScore;
 
     private float _livingTime;
-    private float _minimumSizeTimeMin = 1f;
-    private float _minimumSizeTimeMax = 3f;
+    private float _minimumSizeTimeMin = 5f;
+    private float _minimumSizeTimeMax = 7f;
     private float _minimumSizeTime;
     private float _mediumSizeTimeMin = 8f;
     private float _mediumSizeTimeMax = 16f;
@@ -151,12 +153,13 @@ public class Loot : MonoBehaviour
         if (_livingTime > _overSizeTime)
         {
             _lootScore = 0;
+            OnLootFalls?.Invoke(this, EventArgs.Empty);
             lootState = LootState.Dropping;
         }
     }
     private void HandleDroppingState()
     {
-        _fallingSpeed = 6f;
+        _fallingSpeed = _snowFallingSpeed;
         DropDownLoot();
     }
     private void DropDownLoot()

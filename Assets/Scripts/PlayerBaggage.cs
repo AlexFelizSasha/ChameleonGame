@@ -52,7 +52,7 @@ public class PlayerBaggage : MonoBehaviour
                 
                 if (transform.position == _waterBarrel.position)
                 {
-                    Debug.Log("baggage is on barrel!");
+                    //Debug.Log("baggage is on barrel!");
                     playerBaggageState = PlayerBaggageState.Unload;
                 }
                 break;
@@ -71,7 +71,7 @@ public class PlayerBaggage : MonoBehaviour
                 }
                 break;
         }
-        Debug.Log(playerBaggageState);
+        //Debug.Log(playerBaggageState);
     }
     private void Loot_OnLootScoreAdd(object sender, Loot.OnLootScoreAddEventArgs e)
     {
