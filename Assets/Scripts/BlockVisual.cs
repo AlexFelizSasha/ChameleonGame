@@ -7,7 +7,7 @@ public class BlockVisual : MonoBehaviour
 {
     [SerializeField] private GameObject _parentBlock;
     [SerializeField] private List<MaterialSO> _materialSOList;
-    [SerializeField] private GameObject _cloud;
+    //[SerializeField] private GameObject _cloud;
 
     public event EventHandler OnPlayerIsOnBlock;
     public event EventHandler OnPlayerLeavesBlock;
@@ -59,10 +59,10 @@ public class BlockVisual : MonoBehaviour
         _blockMaterials[0] = _material;
         _renderer.materials = _blockMaterials;
 
-        var _cloudRenderer = _cloud.gameObject.GetComponent<MeshRenderer>();
-        var _cloudMaterials = _cloudRenderer.materials;
-        _cloudMaterials[0] = _material;
-        _cloudRenderer.materials = _cloudMaterials;
+        //var _cloudRenderer = _cloud.gameObject.GetComponent<MeshRenderer>();
+        //var _cloudMaterials = _cloudRenderer.materials;
+        //_cloudMaterials[0] = _material;
+        //_cloudRenderer.materials = _cloudMaterials;
     }
     public void ChangingSameColors()
     {

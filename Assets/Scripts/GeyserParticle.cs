@@ -42,19 +42,14 @@ public class GeyserParticle : MonoBehaviour
                 }    
                 break;
         }
-        Debug.Log(geyserParticleState + "\n" + _geyserOpenTime);
     }
 
     private void _geyserAnimator_OnOpenGeyser(object sender, System.EventArgs e)
     {
         _geyserOpenTime = 4f;
-        Debug.Log("Particles up!");
-        //SpeedupParticles(_speedUpValue);
     }
     private void SpeedupParticles(float speedUpValue)
     {
-        //var _particleVelocity = _geyserParticle.velocityOverLifetime;
-        //_particleVelocity.yMultiplier += speedUpValue;
         var _particleMain = _geyserParticle.main;
         _particleMain.startLifetime = speedUpValue;
     }

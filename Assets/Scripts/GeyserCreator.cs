@@ -23,7 +23,6 @@ public class GeyserCreator : MonoBehaviour
             float _geyserLowerYposition = _geyserPosition.y - _geyserHeightDifference;
             Vector3 _geyserLowerPosition = new Vector3(_geyserPosition.x, _geyserLowerYposition, _geyserPosition.z);
             GameObject _geyser = Instantiate(_geyserPrefab, _geyserLowerPosition, Quaternion.identity);
-            Debug.Log(_geyser.transform.position + "created");
         }
     }
     private void PrintGeyserPositionList()

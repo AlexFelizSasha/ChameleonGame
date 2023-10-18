@@ -50,9 +50,7 @@ public class GeyserAnimator : MonoBehaviour
         {
             _geyserAnimator.SetBool(OPEN_GEYSER, true);
             OnOpenGeyser?.Invoke(this, EventArgs.Empty);
-            geyserAnimatorState = GeyserAnimatorState.Open;
-            
-            Debug.Log("geyser!!!!");
+            geyserAnimatorState = GeyserAnimatorState.Open;            
         }
     }
 

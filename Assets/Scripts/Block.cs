@@ -86,8 +86,10 @@ public class Block : MonoBehaviour
     }
     private void HandleCreationState()
     {
+        
         if (_livingTime > _timeForFirstFlight)
         {
+            isCreated = true;
             blockState = BlockState.FirstFlight;
         }
     }
@@ -107,11 +109,12 @@ public class Block : MonoBehaviour
         isCreated = false;
     }
     private void HandleIdleState()
-    {          
+    {
+        isIdle = false;
         if (_playerIsOnBlock)
         {
+            
             blockState = BlockState.WithPlayer;
-            isIdle = false;
         }
     }
     private void HandleWithPlayerState()
@@ -146,10 +149,10 @@ public class Block : MonoBehaviour
     private void DestroyBlock()
     {
         _livingTime = 0;
-        isCreated = true;
         _playerLeftBlock = false;
+        isReplaced = false;
 
-        int _startY = BlocksSpawnPoints.startPositionY;
+        int _startY = BlocksSpawnPoints.startPositionY - 1;
         Vector3 _startPosition = new Vector3(transform.position.x, _startY, transform.position.z);
         transform.position = _startPosition;
         blockState = BlockState.Creation;

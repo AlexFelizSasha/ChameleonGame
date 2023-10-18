@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class WateringMachine : MonoBehaviour
 {
+    public static WateringMachine instance { get; private set; }
+
     public event EventHandler OnStartWatering;
     public event EventHandler OnStopWatering;
 
     [SerializeField] private List<Transform> _machineRoutePoints;
     private float _moveSpeed = 3f;
+
+    private bool _isStopWatering;
+    private bool _isStartWatering;
 
     private enum MachineState
     {
@@ -20,6 +25,13 @@ public class WateringMachine : MonoBehaviour
         MoveToWaterBarrel
     }
     private MachineState _machineState;
+    private void Awake()
+    {
+        if (instance != null)
+            Destroy(instance);
+        else
+            instance = this;
+    }
     private void Start()
     {
         _machineState = MachineState.Idle;
@@ -30,6 +42,8 @@ public class WateringMachine : MonoBehaviour
         switch (_machineState)
         {
             case MachineState.Idle:
+                _isStopWatering = false;
+                _isStartWatering = false;
                 transform.position = _machineRoutePoints[0].position;
                 if (transform.position == _machineRoutePoints[0].position)
                     SetMachineDirection(_machineRoutePoints[1].position);
@@ -40,16 +54,25 @@ public class WateringMachine : MonoBehaviour
                 MoveToPosition(_machineRoutePoints[1].position);
                 if (transform.position == _machineRoutePoints[1].position)
                 {
+                    if (!_isStartWatering)
+                    {
+                        OnStartWatering?.Invoke(this, EventArgs.Empty);
+                        _isStartWatering = true;
+                    }
                     _machineState = MachineState.MoveAndWater;
-                    OnStartWatering?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case MachineState.MoveAndWater:
                 MoveToPosition(_machineRoutePoints[2].position);
                 if (transform.position == _machineRoutePoints[2].position)
                 {
+                    if (!_isStopWatering)
+                    {
+                        OnStopWatering?.Invoke(this, EventArgs.Empty);
+                        //Debug.Log("Watering stopped");
+                        _isStopWatering = true;
+                    }
                     _machineState = MachineState.MoveBackAfterWater;
-                    OnStopWatering?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case MachineState.MoveBackAfterWater:

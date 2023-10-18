@@ -16,16 +16,41 @@ public class BlockAnimator : MonoBehaviour
     {
         _blockAnimator = GetComponent<Animator>();
     }
+    //private void Start()
+    //{
+    //    _block.OnBlockIdleForVisual += _block_OnBlockIdleForVisual;
+    //}
+
+    //private void _block_OnBlockIdleForVisual(object sender, System.EventArgs e)
+    //{
+    //    _blockAnimator.SetTrigger(IDLE_BLOCK);
+    //}
+
     private void Update()
     {
         if (_blockAnimator != null)
         {
             HandleCreatedAnimation();
-            //HandleIdleAnimation();
             HandleReplacedAnimation();
+            HandleIdleAnimation();
         }
+        //if (_block.blockState == Block.BlockState.FirstFlight)
+        //{
+        //    _blockAnimator.SetTrigger(FIRST_FLIGHT);
+        //}
+        //else _blockAnimator.ResetTrigger(FIRST_FLIGHT);
+
+
+        //if (_block.blockState == Block.BlockState.Idle)
+        //{
+        //    _blockAnimator.SetTrigger(IDLE_BLOCK);
+        //}
+        //else _blockAnimator.ResetTrigger(IDLE_BLOCK);
+
+
 
     }
+
     private void HandleCreatedAnimation()
     {
         if (_block.isCreated)
@@ -33,18 +58,18 @@ public class BlockAnimator : MonoBehaviour
         else
             _blockAnimator.SetBool(IS_CREATED, false);
     }
-    private void HandleReplacedAnimation()
-    {
-        if (_block.isReplaced)
-            _blockAnimator.SetBool(IS_REPLACED, true);
-        else
-            _blockAnimator.SetBool(IS_REPLACED, false);
-    }
     private void HandleIdleAnimation()
     {
         if (_block.isIdle)
             _blockAnimator.SetBool(IS_IDLE, true);
         else
             _blockAnimator.SetBool(IS_IDLE, false);
+    }
+    private void HandleReplacedAnimation()
+    {
+        if (_block.isReplaced)
+            _blockAnimator.SetBool(IS_REPLACED, true);
+        else
+            _blockAnimator.SetBool(IS_REPLACED, false);
     }
 }
