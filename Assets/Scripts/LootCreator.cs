@@ -9,11 +9,13 @@ public class LootCreator : MonoBehaviour
 
     private List<Vector3> _blockPositionList;
     private LootPool _lootPool;
-    private int _lootAmount = 8;
-    private int _startPositionY = 1;
+    private int _lootAmount;
+    private int _startPositionY;
 
     private void Awake()
     {
+        _lootAmount = ConstantsKeeper.LOOT_AMOUNT;
+        _startPositionY = ConstantsKeeper.CLOUDS_Y_POSITION;
         _lootPool = GetComponent<LootPool>();
     }
     private void Start()

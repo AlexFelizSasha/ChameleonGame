@@ -10,7 +10,7 @@ public class LootPool : MonoBehaviour
     private List<GameObject> _poolObjectList;
     private void Awake()
     {
-        _poolSize = 10;
+        _poolSize = ConstantsKeeper.LOOT_POOL_SIZE;
     }
     private void Start()
     {

@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Garden : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float _changeStateTime;
+    private List<GameObject> _gardenTreesList;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        _gardenTreesList = TreeCreator.instance.GetGardenTreeList();
+        _changeStateTime = ConstantsKeeper.TREE_CHANGE_STATE_TIME;
+        WateringStopPoint.OnWateringStopPoint += WateringStopPoint_OnWateringStopPoint;
+    }
+    private void WateringStopPoint_OnWateringStopPoint(object sender, System.EventArgs e)
+    {
+        StartCoroutine(ChangeTreeState());
+    }
+    private IEnumerator ChangeTreeState()
+    {
+        for (int i = 0; i < _gardenTreesList.Count; i++)
+        {
+            _gardenTreesList[i].GetComponent<TreeHandler>().livingTime -= _changeStateTime;
+            Debug.Log("Tree " + i + " changed");
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
     }
 }

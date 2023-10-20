@@ -7,37 +7,35 @@ public class TreeHandler : MonoBehaviour
 {
     [SerializeField] private GameObject _treeBold;
     [SerializeField] private GameObject _treeBranches;
-    [SerializeField] private GameObject _treeFull;
-    [SerializeField] private Transform _wateringStopPointTransform;
+    [SerializeField] private GameObject _treeBranchesLeaves;
+    [SerializeField] private GameObject _treeBranchesLeavesFruits;
 
-    private float _livingTime;
-    private float _changeStateTime = 60;
-    private float _wateringAddTime = 60;
+    public float livingTime;
+    private float _changeStateTime;
 
     public enum TreeState
     {
         Dead,
         Bold,
         Branches,
-        Full
+        BranchesLeaves,
+        BranchesLeavesFruits
     }
     public TreeState treeState;
 
     private void Awake()
     {
-        treeState = TreeState.Full;
-    }
-    private void Start()
-    {
-        WateringStopPoint.OnWateringStopPoint += WateringStopPoint_OnWateringStopPoint;
+        _changeStateTime = ConstantsKeeper.TREE_CHANGE_STATE_TIME;
+        treeState = TreeState.BranchesLeaves;
     }
 
     private void Update()
     {
-        _livingTime += Time.deltaTime;
+        livingTime += Time.deltaTime;
         switch (treeState)
         {
             case TreeState.Dead:
+                ActivateBoldTree();
                 break;
             case TreeState.Bold:
                 ActivateBoldTree();
@@ -45,27 +43,27 @@ public class TreeHandler : MonoBehaviour
                 break;
             case TreeState.Branches:
                 ActivateBranchTree();
-                ChangeState(TreeState.Bold, TreeState.Full);
+                ChangeState(TreeState.Bold, TreeState.BranchesLeaves);
                 break;
-            case TreeState.Full:
-                ActivateFullTree();
-                ChangeState(TreeState.Branches, TreeState.Full);
+            case TreeState.BranchesLeaves:
+                ActivateBranchesLeavesTree();
+                ChangeState(TreeState.Branches, TreeState.BranchesLeavesFruits);
+                break;
+            case TreeState.BranchesLeavesFruits:
+                ActivateBranchesLeavesFruitsTree();
+                ChangeState(TreeState.BranchesLeaves, TreeState.BranchesLeavesFruits);
                 break;
         }
-        
-    }
-    private void WateringStopPoint_OnWateringStopPoint(object sender, System.EventArgs e)
-    {
-        _livingTime -= _wateringAddTime;
+        Debug.Log(livingTime + " , " + treeState);
     }
     private void ChangeState(TreeState previousState, TreeState nextState)
     {
-        if (_livingTime > _changeStateTime)
+        if (livingTime > _changeStateTime)
         {
             treeState = previousState;
-            _livingTime = 0;
+            livingTime = 0;
         }
-        if(_livingTime < 0)
+        if(livingTime < 0)
         {
             treeState = nextState;
         }
@@ -74,18 +72,28 @@ public class TreeHandler : MonoBehaviour
     {
         _treeBold.SetActive(true);
         _treeBranches.SetActive(false);
-        _treeFull.SetActive(false);
+        _treeBranchesLeaves.SetActive(false);
+        _treeBranchesLeavesFruits.SetActive(false);
     }
     private void ActivateBranchTree()
     {
         _treeBold.SetActive(false);
         _treeBranches.SetActive(true);
-        _treeFull.SetActive(false);
+        _treeBranchesLeaves.SetActive(false);
+        _treeBranchesLeavesFruits.SetActive(false);
     }
-    private void ActivateFullTree()
+    private void ActivateBranchesLeavesTree()
     {
         _treeBold.SetActive(false);
         _treeBranches.SetActive(false);
-        _treeFull.SetActive(true);
+        _treeBranchesLeaves.SetActive(true);
+        _treeBranchesLeavesFruits.SetActive(false);
+    }
+    private void ActivateBranchesLeavesFruitsTree()
+    {
+        _treeBold.SetActive(false);
+        _treeBranches.SetActive(false);
+        _treeBranchesLeaves.SetActive(false);
+        _treeBranchesLeavesFruits.SetActive(true);
     }
 }

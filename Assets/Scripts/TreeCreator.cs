@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class TreeCreator : MonoBehaviour
 {
+    public static TreeCreator instance { get; private set; }
+
     [SerializeField] private GameObject _boldTreePrefab;
     [SerializeField] private GameObject _gardenTreePrefab;
-    private int _boldTreesAmount = 150;
-    private int _gardenTreesAmount = 80;
-    private float _groundYposition = -10.5f;
-    //private int _minimalXposition = -16;
-    //private int _minimalZposition = -15;
-    //private int _maxXposition = 35;
-    //private int _maxZposition = 35;
+    private int _boldTreesAmount;
+    private int _gardenTreesAmount;
+    private float _groundYposition;
 
     [SerializeField] private Transform _worldBottomLeftPoint;
     [SerializeField] private Transform _worldTopRightPoint;
@@ -25,12 +23,24 @@ public class TreeCreator : MonoBehaviour
 
     private List<Vector3> _boldTreePositionList = new List<Vector3>();
     private List<Vector3> _gardenTreePositionList = new List<Vector3>();
+    private List<GameObject> _gardenTreeList = new List<GameObject>();
+    private void Awake()
+    {
+        if (instance != null)
+            Destroy(instance.gameObject);
+        else instance = this;
+
+
+        _boldTreesAmount = ConstantsKeeper.DEAD_TREES_AMOUNT;
+        _gardenTreesAmount = ConstantsKeeper.GARDEN_TREES_AMOUNT;
+        _groundYposition = ConstantsKeeper.TREE_Y_POSITION;
+    }
     private void Start()
     {
         SetBoldTreesPositions();
         SetGardenTreePosition();
         CreatePlants(_boldTreePrefab, _boldTreePositionList);
-        CreatePlants(_gardenTreePrefab, _gardenTreePositionList);
+        CreateGardenTrees();
     }
 
     private void CreatePlants(GameObject prefab, List<Vector3> positionsList)
@@ -39,6 +49,15 @@ public class TreeCreator : MonoBehaviour
         {
             Vector3 _rotation = new Vector3(0, Random.Range(0, 180), 0);
             GameObject _tree = Instantiate(prefab, positionsList[i], Quaternion.Euler(_rotation));
+        }
+    }
+    private void CreateGardenTrees()
+    {
+        for (int i = 0; i < _gardenTreePositionList.Count; i++)
+        {
+            Vector3 _rotation = new Vector3(0, Random.Range(0, 180), 0);
+            GameObject _tree = Instantiate(_gardenTreePrefab, _gardenTreePositionList[i], Quaternion.Euler(_rotation));
+            _gardenTreeList.Add( _tree );
         }
     }
     private void SetGardenTreePosition()
@@ -72,5 +91,9 @@ public class TreeCreator : MonoBehaviour
                 continue;
             _boldTreePositionList.Add(new Vector3(_xPosition, _groundYposition, _zPosition));
         }
+    }
+    public List<GameObject> GetGardenTreeList()
+    {
+        return _gardenTreeList;
     }
 }

@@ -16,11 +16,12 @@ public class Player : MonoBehaviour
 
     private SearchingBlockColor _blockColorSearch;
     private Transform _pointToMove;
-    private float _moveSpeed = 10f;
+    private float _moveSpeed;
     public bool _isMoving = false;
 
     private void Awake()
     {
+        _moveSpeed = ConstantsKeeper.PLAYER_MOVE_SPEED;
         _blockColorSearch = _playerRadar.gameObject.GetComponent<SearchingBlockColor>();
         _pointToMove = null;
     }

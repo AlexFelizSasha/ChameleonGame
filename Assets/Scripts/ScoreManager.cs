@@ -13,12 +13,14 @@ public class ScoreManager : MonoBehaviour
     }
 
     private int _unloadedScore;
-    private int _fullBarrelScore = 100;
+    private int _fullBarrelScore;
 
     private int _score;
+    
 
     private void Start()
     {
+        _fullBarrelScore = ConstantsKeeper.FULL_WATER_BARREL_SCORE;
         _score = 0;
         _unloadedScore = 0;
         Loot.OnLootScoreAdd += Loot_OnScoreAdd;

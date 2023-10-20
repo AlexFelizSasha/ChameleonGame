@@ -16,11 +16,11 @@ public class PlayerBaggage : MonoBehaviour
 
     private Vector3 _underPlayerPosition;
 
-    private int _positionY = -10;
+    private int _positionY;
     private int _score;
-    private int _unloadScore = 10;
-    private float _moveSpeed = 6f;
-    private float _unloadTime = 5f;
+    private int _unloadScore;
+    private float _moveSpeed;
+    private float _unloadTime;
     private float _unloadCounter;
 
     public enum PlayerBaggageState
@@ -30,6 +30,14 @@ public class PlayerBaggage : MonoBehaviour
         Unload
     }
     public PlayerBaggageState playerBaggageState { get; private set; }
+
+    private void Awake()
+    {
+        _positionY = ConstantsKeeper.BAGGAGE_Y_POSITION;
+        _unloadScore = ConstantsKeeper.BAGGAGE_UNLOAD_SCORE;
+        _moveSpeed = ConstantsKeeper.BAGGAGE_MOVE_SPEED;
+        _unloadTime = ConstantsKeeper.BAGGAGE_UNLOAD_TIME;
+    }
 
     private void Start()
     {
@@ -44,12 +52,12 @@ public class PlayerBaggage : MonoBehaviour
             case PlayerBaggageState.Harvest:
                 _underPlayerPosition = new Vector3(_playerTransform.position.x, _positionY, _playerTransform.position.z);
                 MoveToPosition(_underPlayerPosition);
-                if (_score > _unloadScore)
+                if (_score == _unloadScore)
                     playerBaggageState = PlayerBaggageState.MoveToBarrel;
                 break;
             case PlayerBaggageState.MoveToBarrel:
                 MoveToPosition(_waterBarrel.position);
-                
+
                 if (transform.position == _waterBarrel.position)
                 {
                     //Debug.Log("baggage is on barrel!");
@@ -71,18 +79,25 @@ public class PlayerBaggage : MonoBehaviour
                 }
                 break;
         }
-        //Debug.Log(playerBaggageState);
     }
     private void Loot_OnLootScoreAdd(object sender, Loot.OnLootScoreAddEventArgs e)
     {
         _score += e.lootScore;
+        if (_score > _unloadScore)
+            _score = _unloadScore;
     }
     private void MoveToPosition(Vector3 objectPosition)
     {
         float _speed = _moveSpeed * Time.deltaTime;
         Vector3 _movementPoint = objectPosition;
         Vector3 _moveDirection = _movementPoint - transform.position;
-        transform.forward = _moveDirection.normalized;
+        if (_moveDirection != Vector3.zero)
+            transform.forward = _moveDirection.normalized;
         transform.position = Vector3.MoveTowards(transform.position, _movementPoint, _speed);
+    }
+    public float GetWaterAmount()
+    {
+        float _waterAmount = (float)_score / _unloadScore;
+        return _waterAmount;
     }
 }
