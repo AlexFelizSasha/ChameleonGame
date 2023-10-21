@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     private SearchingBlockColor _blockColorSearch;
     private Transform _pointToMove;
+    private Vector3 _startGamePosition;
     private float _moveSpeed;
     public bool _isMoving = false;
 
@@ -27,14 +28,24 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
+        _startGamePosition = new Vector3(ConstantsKeeper.START_POSITION_X, ConstantsKeeper.START_POSITION_Y, ConstantsKeeper.START_POSITION_Z);
         ColorButtonsManagerUI.OnColorChangedWithButton += ColorButtonsManager_OnColorChangedWithButton;
+        Block.OnKillPlayer += Block_OnKillPlayer;
     }
+
+
     private void Update()
     {
         if (_pointToMove != null)
         {
             MoveToNewBlock(_pointToMove);
         }
+    }
+    private void Block_OnKillPlayer(object sender, EventArgs e)
+    {
+        Debug.Log("Player killed!");
+        transform.position = _startGamePosition;
+        _pointToMove = transform;
     }
 
     private void ColorButtonsManager_OnColorChangedWithButton(object sender, ColorButtonsManagerUI.OnColorChangedWithButtonEventArgs e)

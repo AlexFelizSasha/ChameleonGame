@@ -4,6 +4,12 @@ using UnityEngine;
 
 public static class ConstantsKeeper
 {
+    public const int LIFE_AMOUNT = 5;
+    public const float KILL_PLAYER_TIME = 5f;
+    public const float START_POSITION_X = -5f; 
+    public const float START_POSITION_Y = 1f; 
+    public const float START_POSITION_Z = 0f; 
+
     public const int CLOUDS_Y_POSITION = 1;
 
     public const int TREE_CHANGE_STATE_TIME = 60;

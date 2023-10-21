@@ -54,7 +54,7 @@ public class TreeHandler : MonoBehaviour
                 ChangeState(TreeState.BranchesLeaves, TreeState.BranchesLeavesFruits);
                 break;
         }
-        Debug.Log(livingTime + " , " + treeState);
+        //Debug.Log(livingTime + " , " + treeState);
     }
     private void ChangeState(TreeState previousState, TreeState nextState)
     {
@@ -66,6 +66,7 @@ public class TreeHandler : MonoBehaviour
         if(livingTime < 0)
         {
             treeState = nextState;
+            livingTime = 0;
         }
     }
     private void ActivateBoldTree()

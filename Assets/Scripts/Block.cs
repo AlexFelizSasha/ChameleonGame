@@ -12,6 +12,7 @@ public class Block : MonoBehaviour
     }
     public event EventHandler OnBlockIdleForVisual;
     public event EventHandler OnBlockDestroyedForVisual;
+    public static event EventHandler OnKillPlayer;
     public static event EventHandler<OnBlockIdleEventArgs> OnBlockIdle;
     public class OnBlockIdleEventArgs : EventArgs
     {
@@ -43,6 +44,8 @@ public class Block : MonoBehaviour
     private float _destroyingPositionY = 20f;
     private float _livingTime;
     private float _timeForFirstFlight = 1f;
+    private float _timeWithPlayer;
+    private float _killPlayerTime;
     private bool _playerLeftBlock = false;
     private bool _playerIsOnBlock = false;
 
@@ -54,6 +57,8 @@ public class Block : MonoBehaviour
     private void Start()
     {
         blockState = BlockState.Creation;
+        _killPlayerTime = ConstantsKeeper.KILL_PLAYER_TIME;
+        _timeWithPlayer = 0;
         _livingTime = 0;
         _blockVisualObj.GetComponent<BlockVisual>().OnPlayerIsOnBlock += Block_OnPlayerIsOnBlock;
         _blockVisualObj.GetComponent<BlockVisual>().OnPlayerLeavesBlock += Block_OnPlayerLeavesBlock;
@@ -119,13 +124,16 @@ public class Block : MonoBehaviour
     }
     private void HandleWithPlayerState()
     {
+        _timeWithPlayer += Time.deltaTime;
+        if (_timeWithPlayer > _killPlayerTime)
+        {
+            ReplaceBlock();
+            OnKillPlayer?.Invoke(this, EventArgs.Empty);
+            _timeWithPlayer = 0;
+        }
         if (_playerLeftBlock)
         {
-            OnBlockReplacing?.Invoke(this, new OnBlockReplacingEventArgs
-            {
-                blockPosition = transform.position
-            });
-            blockState = BlockState.Replacing;
+                ReplaceBlock();
         }
         isReplaced = true;
     }
@@ -145,6 +153,14 @@ public class Block : MonoBehaviour
             blockState = BlockState.Destroying;
         }
         isReplaced = false;
+    }
+    private void ReplaceBlock()
+    {
+        OnBlockReplacing?.Invoke(this, new OnBlockReplacingEventArgs
+        {
+            blockPosition = transform.position
+        });
+        blockState = BlockState.Replacing;
     }
     private void DestroyBlock()
     {

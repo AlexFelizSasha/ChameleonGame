@@ -24,7 +24,8 @@ public class Garden : MonoBehaviour
         {
             _gardenTreesList[i].GetComponent<TreeHandler>().livingTime -= _changeStateTime;
             Debug.Log("Tree " + i + " changed");
-            yield return new WaitForSeconds(Time.deltaTime);
+            if (i % 3 == 0)
+                yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 }
