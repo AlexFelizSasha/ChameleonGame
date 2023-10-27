@@ -6,47 +6,74 @@ public class GeyserParticle : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _geyserParticle;
     [SerializeField] private GeyserAnimator _geyserAnimator;
+    private GeyserCollider _geyserCollider;
 
     private float _speedUpValue = 4f;
     private float _speedDownValue = 0.5f;
+    private float _speedBlockValue = 0f;
     private float _geyserOpenTime = 1f;
-    
+    private float _geyserBlockTime;
+    private float _geyserAnimationTime = 4f;
+
     public enum GeyserParticleState
     {
         OpenGeyser,
+        BlockGeyser,
         CloseGeyser
     }
 
     public GeyserParticleState geyserParticleState;
+    private void Awake()
+    {
+        _geyserCollider = GetComponent<GeyserCollider>();
+    }
     private void Start()
     {
+        _geyserBlockTime = ConstantsKeeper.DROP_DELAY_TIME;
         _geyserAnimator.OnOpenGeyser += _geyserAnimator_OnOpenGeyser;
+        _geyserCollider.OnDropOnGeyser += _geyserCollider_OnDropOnGeyser;
     }
+
+
     private void Update()
     {
         _geyserOpenTime -= Time.deltaTime;
         switch (geyserParticleState)
         {
-            case GeyserParticleState.OpenGeyser:                
+            case GeyserParticleState.OpenGeyser:
                 if (_geyserOpenTime < 0)
                 {
                     SpeedupParticles(_speedDownValue);
                     geyserParticleState = GeyserParticleState.CloseGeyser;
                 }
                 break;
-            case GeyserParticleState.CloseGeyser:                
+            case GeyserParticleState.CloseGeyser:
                 if (_geyserOpenTime > 0)
                 {
                     SpeedupParticles(_speedUpValue);
                     geyserParticleState = GeyserParticleState.OpenGeyser;
-                }    
+                }
+                break;
+            case GeyserParticleState.BlockGeyser:
+
+                if (_geyserOpenTime > 0)
+                {
+                    SpeedupParticles(_speedDownValue);
+                    geyserParticleState = GeyserParticleState.OpenGeyser;
+                }
                 break;
         }
     }
 
     private void _geyserAnimator_OnOpenGeyser(object sender, System.EventArgs e)
     {
-        _geyserOpenTime = 4f;
+        _geyserOpenTime = _geyserAnimationTime;
+    }
+    private void _geyserCollider_OnDropOnGeyser(object sender, System.EventArgs e)
+    {
+        _geyserOpenTime = _geyserBlockTime;
+        SpeedupParticles(_speedBlockValue);
+        geyserParticleState = GeyserParticleState.BlockGeyser;
     }
     private void SpeedupParticles(float speedUpValue)
     {

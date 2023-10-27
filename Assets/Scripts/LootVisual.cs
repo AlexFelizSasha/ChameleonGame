@@ -20,7 +20,7 @@ public class LootVisual : MonoBehaviour
         }        
         if (other.gameObject.GetComponent<BaggageVisual>())
         {
-            OnLootPicked?.Invoke(this, EventArgs.Empty);            
+            OnLootPicked?.Invoke(this, EventArgs.Empty);
 
             //Debug.Log("InBaggage!!!!");
         }

@@ -26,7 +26,7 @@ public class TreeHandler : MonoBehaviour
     private void Awake()
     {
         _changeStateTime = ConstantsKeeper.TREE_CHANGE_STATE_TIME;
-        treeState = TreeState.BranchesLeaves;
+        treeState = TreeState.BranchesLeavesFruits;
     }
 
     private void Update()

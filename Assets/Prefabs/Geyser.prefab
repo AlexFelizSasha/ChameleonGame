@@ -5042,6 +5042,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 776dc115e0466314d8d59d6ede012f12, type: 3}
       insertIndex: -1
       addedObject: {fileID: 707119880031212569}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 776dc115e0466314d8d59d6ede012f12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8264199020905660703}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 776dc115e0466314d8d59d6ede012f12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8578730230312629396}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 776dc115e0466314d8d59d6ede012f12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7054680932443897193}
   m_SourcePrefab: {fileID: 100100000, guid: 776dc115e0466314d8d59d6ede012f12, type: 3}
 --- !u!4 &8138363649015790277 stripped
 Transform:
@@ -5086,6 +5095,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ae161083d0e6648b589252c9f48326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _geyserMaterialSOlist:
+  - {fileID: 11400000, guid: 8e4f680f10eea0f4993dfee557ec7f9e, type: 2}
+  - {fileID: 11400000, guid: 48815a7fc05a94d43b785cf875e7facc, type: 2}
+  _geyserHole: {fileID: 2235529744195601290}
   geyserAnimatorState: 0
 --- !u!114 &707119880031212569
 MonoBehaviour:
@@ -5102,3 +5115,64 @@ MonoBehaviour:
   _geyserParticle: {fileID: 304616034160101030}
   _geyserAnimator: {fileID: 4449400644564550540}
   geyserParticleState: 0
+--- !u!65 &8264199020905660703
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915603554534285439}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.1462088, y: 0.33850417, z: 3.1462088}
+  m_Center: {x: -0.000000059604645, y: 0.16925208, z: 0}
+--- !u!114 &8578730230312629396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915603554534285439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a033cae565cf64db223c5b99cfd894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropMaterial: {fileID: 2100000, guid: 4328a59cf735f9e4e80df51c38004617, type: 2}
+--- !u!54 &7054680932443897193
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915603554534285439}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -7,7 +7,6 @@ public class BlockVisual : MonoBehaviour
 {
     [SerializeField] private GameObject _parentBlock;
     [SerializeField] private List<MaterialSO> _materialSOList;
-    //[SerializeField] private GameObject _cloud;
 
     public event EventHandler OnPlayerIsOnBlock;
     public event EventHandler OnPlayerLeavesBlock;
@@ -18,8 +17,6 @@ public class BlockVisual : MonoBehaviour
     {
         _searchingBlockColor = GetComponent<SearchingBlockColor>();
         SetBlockColor(_materialSOList[0]);
-        //SetBlockColor(_materialSOList[UnityEngine.Random.Range(0, _materialSOList.Count)]);
-        //ChangingSameColors();
     }
     private void Start()
     {
@@ -58,11 +55,6 @@ public class BlockVisual : MonoBehaviour
         var _blockMaterials = _renderer.materials;
         _blockMaterials[0] = _material;
         _renderer.materials = _blockMaterials;
-
-        //var _cloudRenderer = _cloud.gameObject.GetComponent<MeshRenderer>();
-        //var _cloudMaterials = _cloudRenderer.materials;
-        //_cloudMaterials[0] = _material;
-        //_cloudRenderer.materials = _cloudMaterials;
     }
     public void ChangingSameColors()
     {

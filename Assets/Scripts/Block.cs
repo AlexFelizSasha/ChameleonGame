@@ -32,7 +32,9 @@ public class Block : MonoBehaviour
         FirstFlight,
         Idle,
         WithPlayer,
+        WithPlayerAndDrop,
         Replacing,
+        WithDrop,
         Destroying
     }
 
@@ -46,23 +48,32 @@ public class Block : MonoBehaviour
     private float _timeForFirstFlight = 1f;
     private float _timeWithPlayer;
     private float _killPlayerTime;
+    private float _dropDelayTime;
     private bool _playerLeftBlock = false;
     private bool _playerIsOnBlock = false;
+
+    private GeyserCollider _geyserCollider;
 
     public bool isCreated = false;
     public bool isReplaced = false;
     public bool isIdle = false;
 
-
+    private void Awake()
+    {
+        _geyserCollider = GetComponent<GeyserCollider>();
+    }
     private void Start()
     {
         blockState = BlockState.Creation;
         _killPlayerTime = ConstantsKeeper.KILL_PLAYER_TIME;
+        _dropDelayTime = ConstantsKeeper.DROP_DELAY_TIME;
         _timeWithPlayer = 0;
         _livingTime = 0;
         _blockVisualObj.GetComponent<BlockVisual>().OnPlayerIsOnBlock += Block_OnPlayerIsOnBlock;
         _blockVisualObj.GetComponent<BlockVisual>().OnPlayerLeavesBlock += Block_OnPlayerLeavesBlock;
+        GeyserCollider.OnDropForBlock += GeyserCollider_OnDropForBlock;
     }
+
 
     private void Update()
     {
@@ -87,11 +98,17 @@ public class Block : MonoBehaviour
             case BlockState.Destroying:
                 DestroyBlock();
                 break;
+            case BlockState.WithPlayerAndDrop:
+                HandleWithPlayerAndDropState();
+                break;
+            case BlockState.WithDrop:
+                HandleWithDropState();
+                break;
         }
     }
     private void HandleCreationState()
     {
-        
+
         if (_livingTime > _timeForFirstFlight)
         {
             isCreated = true;
@@ -118,22 +135,17 @@ public class Block : MonoBehaviour
         isIdle = false;
         if (_playerIsOnBlock)
         {
-            
+            _timeWithPlayer = 0;
+
             blockState = BlockState.WithPlayer;
         }
     }
     private void HandleWithPlayerState()
     {
-        _timeWithPlayer += Time.deltaTime;
-        if (_timeWithPlayer > _killPlayerTime)
-        {
-            ReplaceBlock();
-            OnKillPlayer?.Invoke(this, EventArgs.Empty);
-            _timeWithPlayer = 0;
-        }
+        KillPlayer();
         if (_playerLeftBlock)
         {
-                ReplaceBlock();
+            ReplaceBlock();
         }
         isReplaced = true;
     }
@@ -154,12 +166,28 @@ public class Block : MonoBehaviour
         }
         isReplaced = false;
     }
+    private void HandleWithPlayerAndDropState()
+    {
+        KillPlayer();
+        if (_playerLeftBlock)
+        {
+            blockState = BlockState.WithDrop;
+        }
+        //isReplaced = true;
+    }
+    private void HandleWithDropState()
+    {
+        MoveBlock(_destroyingPositionY);
+        if (_livingTime > 0)
+            DestroyBlock();
+    }
     private void ReplaceBlock()
     {
         OnBlockReplacing?.Invoke(this, new OnBlockReplacingEventArgs
         {
             blockPosition = transform.position
         });
+        _playerIsOnBlock = false;
         blockState = BlockState.Replacing;
     }
     private void DestroyBlock()
@@ -173,7 +201,15 @@ public class Block : MonoBehaviour
         transform.position = _startPosition;
         blockState = BlockState.Creation;
     }
-
+    private void KillPlayer()
+    {
+        _timeWithPlayer += Time.deltaTime;
+        if (_timeWithPlayer > _killPlayerTime)
+        {
+            ReplaceBlock();
+            OnKillPlayer?.Invoke(this, EventArgs.Empty);
+        }
+    }
     private void Block_OnPlayerLeavesBlock(object sender, System.EventArgs e)
     {
         _playerIsOnBlock = false;
@@ -183,7 +219,21 @@ public class Block : MonoBehaviour
     private void Block_OnPlayerIsOnBlock(object sender, System.EventArgs e)
     {
         _playerIsOnBlock = true;
-        //Debug.Log("Block sees player");
+    }
+    private void GeyserCollider_OnDropForBlock(object sender, GeyserCollider.OnDropForBlockEventArgs e)
+    {
+        if (ComparisonXZPositions.EqualXZPositions(transform.position, e.position))
+        {
+            _livingTime = -_dropDelayTime;
+            if (_playerIsOnBlock)
+            {
+                blockState = BlockState.WithPlayerAndDrop;
+            }
+            else
+            {
+                blockState = BlockState.WithDrop;
+            }
+        }
     }
     private void MoveBlock(float positionY)
     {

@@ -23,7 +23,6 @@ public class Garden : MonoBehaviour
         for (int i = 0; i < _gardenTreesList.Count; i++)
         {
             _gardenTreesList[i].GetComponent<TreeHandler>().livingTime -= _changeStateTime;
-            Debug.Log("Tree " + i + " changed");
             if (i % 3 == 0)
                 yield return new WaitForSeconds(Time.deltaTime);
         }
