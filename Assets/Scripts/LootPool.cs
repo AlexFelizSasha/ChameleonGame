@@ -22,9 +22,10 @@ public class LootPool : MonoBehaviour
 
         for (int i = 0; i < _poolSize; i++)
         {
-            GameObject poolObject = Instantiate(ChooseObject(_spawningObject), Vector3.zero, Quaternion.identity);
-            poolObject.SetActive(false);
-            _poolObjectList.Add(poolObject);
+            GameObject _poolObject = Instantiate(ChooseObject(_spawningObject), Vector3.zero, Quaternion.identity);
+            _poolObject.SetActive(false);
+            _poolObject.transform.parent = transform;
+            _poolObjectList.Add(_poolObject);
         }
     }
     private GameObject ChooseObject(List<GameObject> objectsList)

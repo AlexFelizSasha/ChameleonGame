@@ -18,6 +18,9 @@ public class Loot : MonoBehaviour
 
     public event EventHandler OnLootDropped;
     public event EventHandler OnLootFalls;
+    public event EventHandler OnLootCreated;
+    public event EventHandler OnLootMediumSize;
+    public event EventHandler OnLootMaximumSize;
 
     [SerializeField] private LootVisual _lootVisual;
 
@@ -128,6 +131,7 @@ public class Loot : MonoBehaviour
         _lootScore = 1;
         if (_livingTime > _minimumSizeTime)
         {
+            OnLootCreated?.Invoke(this, EventArgs.Empty);
             lootState = LootState.MinimumSize;
         }
     }
@@ -136,6 +140,7 @@ public class Loot : MonoBehaviour
         _lootScore = 2;
         if (_livingTime > _mediumSizeTime)
         {
+            OnLootMediumSize?.Invoke(this, EventArgs.Empty);
             lootState = LootState.MediumSize;
         }
     }
@@ -144,6 +149,7 @@ public class Loot : MonoBehaviour
         _lootScore = 3;
         if (_livingTime > _maximumSizeTime)
         {
+            OnLootMaximumSize?.Invoke(this, EventArgs.Empty);
             lootState = LootState.MaximumSize;
         }
     }

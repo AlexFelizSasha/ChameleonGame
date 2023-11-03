@@ -49,6 +49,7 @@ public class TreeCreator : MonoBehaviour
         {
             Vector3 _rotation = new Vector3(0, Random.Range(0, 180), 0);
             GameObject _tree = Instantiate(prefab, positionsList[i], Quaternion.Euler(_rotation));
+            _tree.transform.parent = transform;
         }
     }
     private void CreateGardenTrees()
@@ -57,6 +58,7 @@ public class TreeCreator : MonoBehaviour
         {
             Vector3 _rotation = new Vector3(0, Random.Range(0, 180), 0);
             GameObject _tree = Instantiate(_gardenTreePrefab, _gardenTreePositionList[i], Quaternion.Euler(_rotation));
+            _tree.transform.parent = transform;
             _gardenTreeList.Add( _tree );
         }
     }

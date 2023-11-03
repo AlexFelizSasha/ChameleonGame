@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class GeyserParticle : MonoBehaviour
@@ -13,6 +14,7 @@ public class GeyserParticle : MonoBehaviour
     private float _speedBlockValue = 0f;
     private float _geyserOpenTime = 1f;
     private float _geyserBlockTime;
+    private float _unBlockTime = 1f;
     private float _geyserAnimationTime = 4f;
 
     public enum GeyserParticleState
@@ -56,9 +58,10 @@ public class GeyserParticle : MonoBehaviour
                 break;
             case GeyserParticleState.BlockGeyser:
 
-                if (_geyserOpenTime > 0)
+                if (_geyserOpenTime < _unBlockTime)
                 {
-                    SpeedupParticles(_speedDownValue);
+                    _geyserOpenTime = _geyserAnimationTime;
+                    SpeedupParticles(_speedUpValue);
                     geyserParticleState = GeyserParticleState.OpenGeyser;
                 }
                 break;
@@ -73,6 +76,7 @@ public class GeyserParticle : MonoBehaviour
     {
         _geyserOpenTime = _geyserBlockTime;
         SpeedupParticles(_speedBlockValue);
+        Debug.Log("Geyser blocked" + transform.position);
         geyserParticleState = GeyserParticleState.BlockGeyser;
     }
     private void SpeedupParticles(float speedUpValue)
