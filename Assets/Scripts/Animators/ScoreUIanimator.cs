@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class ScoreManagerUI : MonoBehaviour
+public class ScoreUIanimator : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _scoreAmountText;
+    private Animator _scoreAnimator;
+    private const string SCORE_ADD = "ScoreAdd";
 
+    private void Awake()
+    {
+        _scoreAnimator = GetComponent<Animator>();
+    }
     private void Start()
     {
         ScoreManager.OnScoreChanging += ScoreManager_OnScoreChanging;
-        _scoreAmountText.text = "0";
     }
 
     private void ScoreManager_OnScoreChanging(object sender, ScoreManager.OnScoreChangingEventArgs e)
     {
-        _scoreAmountText.text = e.score.ToString();
+        _scoreAnimator.SetTrigger(SCORE_ADD);
     }
 }

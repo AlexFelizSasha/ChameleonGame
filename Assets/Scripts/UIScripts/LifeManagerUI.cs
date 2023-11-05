@@ -12,12 +12,12 @@ public class LifeManagerUI : MonoBehaviour
     {
         _lifeAmount = ConstantsKeeper.LIFE_AMOUNT;
         Block.OnKillPlayer += Block_OnKillPlayer;
-        _lifeText.text = "Life: " + _lifeAmount.ToString();
+        _lifeText.text = _lifeAmount.ToString();
     }
 
     private void Block_OnKillPlayer(object sender, System.EventArgs e)
     {
         _lifeAmount --;
-        _lifeText.text = "Life: " + _lifeAmount.ToString();
+        _lifeText.text = _lifeAmount.ToString();
     }
 }
