@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
+using static GeyserParticle;
 
 public class GeyserParticle : MonoBehaviour
 {
@@ -28,10 +29,13 @@ public class GeyserParticle : MonoBehaviour
     private void Awake()
     {
         _geyserCollider = GetComponent<GeyserCollider>();
+        _geyserBlockTime = ConstantsKeeper.DROP_DELAY_TIME;
     }
     private void Start()
     {
-        _geyserBlockTime = ConstantsKeeper.DROP_DELAY_TIME;
+        _geyserOpenTime = _geyserAnimationTime;
+        geyserParticleState = GeyserParticleState.CloseGeyser;
+        
         _geyserAnimator.OnOpenGeyser += _geyserAnimator_OnOpenGeyser;
         _geyserCollider.OnDropOnGeyser += _geyserCollider_OnDropOnGeyser;
     }

@@ -41,6 +41,7 @@ public class TreeCreator : MonoBehaviour
         SetGardenTreePosition();
         CreatePlants(_boldTreePrefab, _boldTreePositionList);
         CreateGardenTrees();
+        Debug.Log("TreeCreator");
     }
 
     private void CreatePlants(GameObject prefab, List<Vector3> positionsList)

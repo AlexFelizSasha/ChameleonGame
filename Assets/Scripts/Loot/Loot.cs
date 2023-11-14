@@ -40,6 +40,7 @@ public class Loot : MonoBehaviour
     private float _snowFallingSpeed = 5f;
     private int _downPointY = -25;   //how low loot falls down
     private int _lootScore;
+    private int _lootScoreMinimal;
 
     private float _livingTime;
     private float _minimumSizeTimeMin = 5f;
@@ -58,6 +59,7 @@ public class Loot : MonoBehaviour
     private void OnEnable()
     {
         lootState = LootState.Creation;
+        _lootScoreMinimal = ConstantsKeeper.LOOT_SCORE_MINIMAL;
     }
 
     private void Start()
@@ -128,7 +130,7 @@ public class Loot : MonoBehaviour
     }
     private void HandleCreationState()
     {
-        _lootScore = 1;
+        _lootScore = _lootScoreMinimal;
         if (_livingTime > _minimumSizeTime)
         {
             OnLootCreated?.Invoke(this, EventArgs.Empty);
@@ -137,7 +139,7 @@ public class Loot : MonoBehaviour
     }
     private void HandleMinimumSizeState()
     {
-        _lootScore = 2;
+        _lootScore = 2 * _lootScoreMinimal;
         if (_livingTime > _mediumSizeTime)
         {
             OnLootMediumSize?.Invoke(this, EventArgs.Empty);
@@ -146,7 +148,7 @@ public class Loot : MonoBehaviour
     }
     private void HandleMediumSizeState()
     {
-        _lootScore = 3;
+        _lootScore = 3 * _lootScoreMinimal;
         if (_livingTime > _maximumSizeTime)
         {
             OnLootMaximumSize?.Invoke(this, EventArgs.Empty);
@@ -155,7 +157,7 @@ public class Loot : MonoBehaviour
     }
     private void HandleMaximumSizeState()
     {
-        _lootScore = 5;
+        _lootScore = 5 * _lootScoreMinimal;
         if (_livingTime > _overSizeTime)
         {
             _lootScore = 0;

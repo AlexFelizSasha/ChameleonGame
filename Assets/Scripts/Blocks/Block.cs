@@ -61,14 +61,15 @@ public class Block : MonoBehaviour
     private void Awake()
     {
         _geyserCollider = GetComponent<GeyserCollider>();
-    }
-    private void Start()
-    {
-        blockState = BlockState.Creation;
         _killPlayerTime = ConstantsKeeper.KILL_PLAYER_TIME;
         _dropDelayTime = ConstantsKeeper.DROP_DELAY_TIME;
         _timeWithPlayer = 0;
         _livingTime = 0;
+    }
+    private void Start()
+    {
+        blockState = BlockState.Creation;
+
         _blockVisualObj.GetComponent<BlockVisual>().OnPlayerIsOnBlock += Block_OnPlayerIsOnBlock;
         _blockVisualObj.GetComponent<BlockVisual>().OnPlayerLeavesBlock += Block_OnPlayerLeavesBlock;
         GeyserCollider.OnDropForBlock += GeyserCollider_OnDropForBlock;
@@ -173,7 +174,6 @@ public class Block : MonoBehaviour
         {
             blockState = BlockState.WithDrop;
         }
-        //isReplaced = true;
     }
     private void HandleWithDropState()
     {

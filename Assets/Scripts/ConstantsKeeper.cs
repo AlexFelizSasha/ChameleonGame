@@ -30,4 +30,5 @@ public static class ConstantsKeeper
 
     public const int LOOT_POOL_SIZE = 10;
     public const int LOOT_AMOUNT = 8;
+    public const int LOOT_SCORE_MINIMAL = 10;
 }
