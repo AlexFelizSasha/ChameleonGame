@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class PlayerLifeManager : MonoBehaviour
 {
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
     public static event EventHandler OnGameOver;
 
     private int _lifeAmount;
 
     private void Awake()
     {
-        _lifeAmount = ConstantsKeeper.LIFE_AMOUNT;
+        //_lifeAmount = ConstantsKeeper.LIFE_AMOUNT;
+        _lifeAmount = _gameConstantsSO.lifeAmount;
     }
     private void Start()
     {

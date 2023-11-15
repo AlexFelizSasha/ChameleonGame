@@ -6,16 +6,19 @@ using UnityEngine;
 public class LootCreator : MonoBehaviour
 {
     [SerializeField] private GameObject _lootPrefab;
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
 
     private List<Vector3> _blockPositionList;
     private LootPool _lootPool;
     private int _lootAmount;
-    private int _startPositionY;
+    private float _startPositionY;
 
     private void Awake()
     {
-        _lootAmount = ConstantsKeeper.LOOT_AMOUNT;
-        _startPositionY = ConstantsKeeper.CLOUDS_Y_POSITION;
+        //_lootAmount = ConstantsKeeper.LOOT_AMOUNT;
+        //_startPositionY = ConstantsKeeper.CLOUDS_Y_POSITION;
+        _lootAmount = _gameConstantsSO.lootAmount;
+        _startPositionY = _gameConstantsSO.startPositionY;
         _lootPool = GetComponent<LootPool>();
     }
     private void Start()

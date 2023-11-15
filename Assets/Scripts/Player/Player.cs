@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform _playerVisual;
     [SerializeField] private Transform _playerRadar;
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
 
     private SearchingBlockColor _blockColorSearch;
     private Transform _pointToMove;
@@ -22,7 +23,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _moveSpeed = ConstantsKeeper.PLAYER_MOVE_SPEED;
+        //_moveSpeed = ConstantsKeeper.PLAYER_MOVE_SPEED;
+        _moveSpeed = _gameConstantsSO.playerMoveSpeed;
         _blockColorSearch = _playerRadar.gameObject.GetComponent<SearchingBlockColor>();
         _pointToMove = null;
     }

@@ -5099,6 +5099,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8e4f680f10eea0f4993dfee557ec7f9e, type: 2}
   - {fileID: 11400000, guid: 48815a7fc05a94d43b785cf875e7facc, type: 2}
   _geyserHole: {fileID: 2235529744195601290}
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
   geyserAnimatorState: 0
 --- !u!114 &707119880031212569
 MonoBehaviour:
@@ -5114,6 +5115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _geyserParticle: {fileID: 304616034160101030}
   _geyserAnimator: {fileID: 4449400644564550540}
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
   geyserParticleState: 0
 --- !u!65 &8264199020905660703
 BoxCollider:

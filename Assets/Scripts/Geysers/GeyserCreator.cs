@@ -25,9 +25,4 @@ public class GeyserCreator : MonoBehaviour
             GameObject _geyser = Instantiate(_geyserPrefab, _geyserLowerPosition, Quaternion.identity);
         }
     }
-    private void PrintGeyserPositionList()
-    {
-        for (int i = 0; i < _geyserPositionList.Count; i++)
-            Debug.Log(_geyserPositionList[i]);
-    }
 }

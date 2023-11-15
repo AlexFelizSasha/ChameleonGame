@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Loot : MonoBehaviour
 {  
+    [SerializeField] private LootVisual _lootVisual;
+    [SerializeField] private List<MaterialSO> _materialSOList;
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
+
     public static event EventHandler<OnLootScoreAddEventArgs> OnLootScoreAdd;
     public class OnLootScoreAddEventArgs : EventArgs
     {
@@ -22,9 +26,6 @@ public class Loot : MonoBehaviour
     public event EventHandler OnLootMediumSize;
     public event EventHandler OnLootMaximumSize;
 
-    [SerializeField] private LootVisual _lootVisual;
-
-    [SerializeField] private List<MaterialSO> _materialSOList;
 
     public enum LootState
     {
@@ -59,7 +60,8 @@ public class Loot : MonoBehaviour
     private void OnEnable()
     {
         lootState = LootState.Creation;
-        _lootScoreMinimal = ConstantsKeeper.LOOT_SCORE_MINIMAL;
+        //_lootScoreMinimal = ConstantsKeeper.LOOT_SCORE_MINIMAL;
+        _lootScoreMinimal = _gameConstantsSO.lootScoreMinimal;
     }
 
     private void Start()

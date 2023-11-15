@@ -12,6 +12,7 @@ public class GeyserAnimator : MonoBehaviour
 
     [SerializeField] private List<MaterialSO> _geyserMaterialSOlist;
     [SerializeField] private GameObject _geyserHole;
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
 
     private float _animatorTimer;
     private float _dropDelayTime;
@@ -35,7 +36,8 @@ public class GeyserAnimator : MonoBehaviour
         _geyserCollider.OnDropOnGeyser += _geyserCollider_OnDropOnGeyser;
 
         _animatorTimer = 0;
-        _dropDelayTime = ConstantsKeeper.DROP_DELAY_TIME;
+        //_dropDelayTime = ConstantsKeeper.DROP_DELAY_TIME;
+        _dropDelayTime = _gameConstantsSO.dropDelayTime;
         geyserAnimatorState = GeyserAnimatorState.Open;
         _geyserAnimator.SetBool(OPEN_GEYSER, true);
     }

@@ -11,13 +11,8 @@ public class GeyserCollider : MonoBehaviour
     {
         public Vector3 position;
     }
-    private Geyser _geyser;
     [SerializeField] Material _dropMaterial;
 
-    private void Awake()
-    {
-        _geyser = GetComponent<Geyser>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {

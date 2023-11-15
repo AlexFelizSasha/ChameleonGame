@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61690fc1a0930424d9f3ef416c4eb39c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
   _blockVisualObj: {fileID: 1957430888841184708}
   isCreated: 0
   isReplaced: 0

@@ -1379,6 +1379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26af2c78bebf75f4abfe576dd7e5f2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
   _machineRoutePoints:
   - {fileID: 1039458812}
   - {fileID: 2137048900}
@@ -2548,6 +2549,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lifeText: {fileID: 31789450}
+  _collectButton: {fileID: 848904306}
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
 --- !u!95 &645900202
 Animator:
   serializedVersion: 5
@@ -2849,6 +2852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d83cf1adbb94246910e15fcf94787b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
 --- !u!114 &796274811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2861,6 +2865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2a726beb2d8444fb64bedd7f66dbda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
 --- !u!1 &832041863
 GameObject:
   m_ObjectHideFlags: 0
@@ -4398,6 +4403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boldTreePrefab: {fileID: 3570395539015687888, guid: 74792e05c1e3de741a86d38c51075761, type: 3}
   _gardenTreePrefab: {fileID: 6691717136329506710, guid: 34534a340b60a3647ba0766bccfbb2c9, type: 3}
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
   _worldBottomLeftPoint: {fileID: 898050985}
   _worldTopRightPoint: {fileID: 1937730454}
   _toxicBottomLeftPoint: {fileID: 54319108}
@@ -5120,6 +5126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lootPrefab: {fileID: 5540150156153864151, guid: 187264f347aac66449fccfc86f7ffab1, type: 3}
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
 --- !u!114 &1343774861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5134,6 +5141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawningObject:
   - {fileID: 5540150156153864151, guid: 187264f347aac66449fccfc86f7ffab1, type: 3}
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
 --- !u!1 &1385970804
 GameObject:
   m_ObjectHideFlags: 0
@@ -11387,6 +11395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 466c1c08bb25a2b4f9ce8286345e1a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
+  _collectButtonUI: {fileID: 848904306}
   gardenState: 0
 --- !u!1 &2042640077
 GameObject:
@@ -11674,6 +11684,10 @@ PrefabInstance:
       propertyPath: _waterBarrel
       value: 
       objectReference: {fileID: 213187967}
+    - target: {fileID: 8628114505063476599, guid: e9b7e37a2370cd04ca258f7b4acc0fc6, type: 3}
+      propertyPath: _gameConstantsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
     - target: {fileID: 8628114505063476599, guid: e9b7e37a2370cd04ca258f7b4acc0fc6, type: 3}
       propertyPath: _playerTransform
       value: 

@@ -8,28 +8,26 @@ public class TreeHandler : MonoBehaviour
     [SerializeField] private GameObject _treeBranchesLeaves;
     [SerializeField] private GameObject _treeBranchesLeavesFruits;
 
-    public float livingTime;
-    private float _changeStateTime;
+    //public float livingTime;
 
-    public enum TreeState
-    {
-        Dead,
-        Bold,
-        Branches,
-        BranchesLeaves,
-        BranchesLeavesFruits
-    }
-    public TreeState treeState;
+    //public enum TreeState
+    //{
+    //    Dead,
+    //    Bold,
+    //    Branches,
+    //    BranchesLeaves,
+    //    BranchesLeavesFruits
+    //}
+    //public TreeState treeState;
 
     private void Awake()
     {
-        _changeStateTime = ConstantsKeeper.TREE_CHANGE_STATE_TIME;
         //treeState = TreeState.BranchesLeavesFruits;
         ActivateBoldTree();
     }
 
-    private void Update()
-    {
+    //private void Update()
+    //{
         //livingTime += Time.deltaTime;
         //switch (treeState)
         //{
@@ -53,7 +51,7 @@ public class TreeHandler : MonoBehaviour
         //        ChangeState(TreeState.BranchesLeaves, TreeState.BranchesLeavesFruits);
         //        break;
         //}
-    }
+    //}
     //private void ChangeState(TreeState previousState, TreeState nextState)
     //{
     //    if (livingTime > _changeStateTime)

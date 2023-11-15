@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class WateringMachine : MonoBehaviour
 {
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
+    [SerializeField] private List<Transform> _machineRoutePoints;
     public static WateringMachine instance { get; private set; }
 
     public event EventHandler OnStartWatering;
     public event EventHandler OnStopWatering;
 
-    [SerializeField] private List<Transform> _machineRoutePoints;
-    private float _moveSpeed = 3f;
+    private float _moveSpeed;
 
     private bool _isStopWatering;
     private bool _isStartWatering;
@@ -31,6 +32,8 @@ public class WateringMachine : MonoBehaviour
             Destroy(instance);
         else
             instance = this;
+        _moveSpeed = _gameConstantsSO.waterMachineMoveSpeed;
+
     }
     private void Start()
     {
@@ -69,7 +72,6 @@ public class WateringMachine : MonoBehaviour
                     if (!_isStopWatering)
                     {
                         OnStopWatering?.Invoke(this, EventArgs.Empty);
-                        //Debug.Log("Watering stopped");
                         _isStopWatering = true;
                     }
                     _machineState = MachineState.MoveBackAfterWater;

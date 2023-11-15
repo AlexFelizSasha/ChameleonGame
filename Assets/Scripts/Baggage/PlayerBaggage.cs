@@ -8,6 +8,8 @@ public class PlayerBaggage : MonoBehaviour
 {
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private Transform _waterBarrel;
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
+
     public static event EventHandler<OnScoreUnloadEventArgs> OnScoreUnload;
     public class OnScoreUnloadEventArgs : EventArgs
     {
@@ -33,10 +35,14 @@ public class PlayerBaggage : MonoBehaviour
 
     private void Awake()
     {
-        _positionY = ConstantsKeeper.BAGGAGE_Y_POSITION;
-        _unloadScore = ConstantsKeeper.BAGGAGE_UNLOAD_SCORE;
-        _moveSpeed = ConstantsKeeper.BAGGAGE_MOVE_SPEED;
-        _unloadTime = ConstantsKeeper.BAGGAGE_UNLOAD_TIME;
+        //_positionY = ConstantsKeeper.BAGGAGE_Y_POSITION;
+        //_unloadScore = ConstantsKeeper.BAGGAGE_UNLOAD_SCORE;
+        //_moveSpeed = ConstantsKeeper.BAGGAGE_MOVE_SPEED;
+        //_unloadTime = ConstantsKeeper.BAGGAGE_UNLOAD_TIME;
+        _positionY = _gameConstantsSO.baggagePositionY;
+        _unloadScore = _gameConstantsSO.baggageUnloadScore;
+        _moveSpeed = _gameConstantsSO.baggageMoveSpeed;
+        _unloadTime = _gameConstantsSO.baggageUnloadTime;
     }
 
     private void Start()

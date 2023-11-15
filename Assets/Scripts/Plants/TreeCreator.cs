@@ -8,9 +8,7 @@ public class TreeCreator : MonoBehaviour
 
     [SerializeField] private GameObject _boldTreePrefab;
     [SerializeField] private GameObject _gardenTreePrefab;
-    private int _boldTreesAmount;
-    private int _gardenTreesAmount;
-    private float _groundYposition;
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
 
     [SerializeField] private Transform _worldBottomLeftPoint;
     [SerializeField] private Transform _worldTopRightPoint;
@@ -20,6 +18,10 @@ public class TreeCreator : MonoBehaviour
     [SerializeField] private Transform _gardenTopRightPoint;
     [SerializeField] private Transform _barrelBottomLeftPoint;
     [SerializeField] private Transform _barrelTopRightPoint;
+
+    private int _boldTreesAmount;
+    private int _gardenTreesAmount;
+    private float _groundYposition;
 
     private List<Vector3> _boldTreePositionList = new List<Vector3>();
     private List<Vector3> _gardenTreePositionList = new List<Vector3>();
@@ -31,9 +33,12 @@ public class TreeCreator : MonoBehaviour
         else instance = this;
 
 
-        _boldTreesAmount = ConstantsKeeper.DEAD_TREES_AMOUNT;
-        _gardenTreesAmount = ConstantsKeeper.GARDEN_TREES_AMOUNT;
-        _groundYposition = ConstantsKeeper.TREE_Y_POSITION;
+        //_boldTreesAmount = ConstantsKeeper.DEAD_TREES_AMOUNT;
+        //_gardenTreesAmount = ConstantsKeeper.GARDEN_TREES_AMOUNT;
+        //_groundYposition = ConstantsKeeper.TREE_Y_POSITION;
+        _boldTreesAmount = _gameConstantsSO.deadTreesAmount;
+        _gardenTreesAmount = _gameConstantsSO.gardenTreesAmount;
+        _groundYposition = _gameConstantsSO.treePositionY;
     }
     private void Start()
     {

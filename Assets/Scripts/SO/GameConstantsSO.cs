@@ -22,6 +22,8 @@ public class GameConstantsSO : ScriptableObject
 
     public int fullWaterBarrelScore = 100;
 
+    public float waterMachineMoveSpeed = 3f;
+
     public int baggagePositionY = -10;
     public int baggageUnloadScore = 10;
     public float baggageMoveSpeed = 6f;

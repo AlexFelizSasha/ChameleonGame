@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Garden : MonoBehaviour
 {
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
+    [SerializeField] private CollectButtonUI _collectButtonUI;
+
     public event EventHandler OnFruitsButton;
 
     private float _livingTime;
@@ -26,7 +29,8 @@ public class Garden : MonoBehaviour
         gardenState = GardenState.LeavesTrees;
         _livingTime = 0;
         _gardenTreesList = TreeCreator.instance.GetGardenTreeList();
-        _changeStateTime = ConstantsKeeper.TREE_CHANGE_STATE_TIME;
+        //_changeStateTime = ConstantsKeeper.TREE_CHANGE_STATE_TIME;
+        _changeStateTime = _gameConstantsSO.treeChangeStateTime;
     }
     private void Start()
     {
@@ -34,7 +38,10 @@ public class Garden : MonoBehaviour
         Debug.Log("Garden");
         StartCoroutine(ChangeTreeVisual(4));
         WateringStopPoint.OnWateringStopPoint += WateringStopPoint_OnWateringStopPoint;
+        _collectButtonUI.OnCollectButtonClicked += CollectButtonUI_OnCollectButtonClicked;
     }
+
+
     private void Update()
     {
         _livingTime += Time.deltaTime;
@@ -43,81 +50,27 @@ public class Garden : MonoBehaviour
             case GardenState.DeadTrees:
                 break;
             case GardenState.BoldTrees:
-                //if (_livingTime > _changeStateTime)
-                //{
-                //    _livingTime = 0;
-                //    StartCoroutine(ChangeTreeVisual(1));
-                //    gardenState = GardenState.DeadTrees;
-                //}
-                //if (_livingTime < 0)
-                //{
-                //    _livingTime = 0;
-                //    StartCoroutine(ChangeTreeVisual(3));
-                //    gardenState = GardenState.BranchesTrees;
-                //}
                 HandleTreesState(1, GardenState.DeadTrees, 3, GardenState.BranchesTrees);
                 break;
             case GardenState.BranchesTrees:
-                //if (_livingTime > _changeStateTime)
-                //{
-                //    _livingTime = 0;
-                //    StartCoroutine(ChangeTreeVisual(2));
-                //    gardenState = GardenState.BoldTrees;
-                //}
-                //if (_livingTime < 0)
-                //{
-                //    _livingTime = 0;
-                //    StartCoroutine(ChangeTreeVisual(4));
-                //    gardenState = GardenState.LeavesTrees;
-                //}
                 HandleTreesState(2, GardenState.BoldTrees, 4, GardenState.LeavesTrees);
                 break;
             case GardenState.LeavesTrees:
-                //if (_livingTime > _changeStateTime)
-                //{
-                //    _livingTime = 0;
-                //    StartCoroutine(ChangeTreeVisual(3));
-                //    gardenState = GardenState.BranchesTrees;
-                //}
-                //if (_livingTime < 0)
-                //{
-                //    _livingTime = 0;
-                //    StartCoroutine(ChangeTreeVisual(5));
-                //    OnFruitsButton?.Invoke(this, EventArgs.Empty);
-                //    Debug.Log("CollectButton");
-                //    gardenState = GardenState.FruitsTrees;
-                //}
                 HandleTreesState(3, GardenState.BranchesTrees, 5, GardenState.FruitsTrees);
                 break;
             case GardenState.FruitsTrees:
-                if (_livingTime == Time.deltaTime)
-                {
-                    OnFruitsButton?.Invoke(this, EventArgs.Empty);
-                    Debug.Log("CollectButton");
-                }
-                if (_livingTime > _changeStateTime)
-                {
-                    _livingTime = 0;
-                    StartCoroutine(ChangeTreeVisual(4));
-                    gardenState = GardenState.LeavesTrees;
-                }
+                HandleFruitsState();
                 break;
         }
     }
     private void WateringStopPoint_OnWateringStopPoint(object sender, System.EventArgs e)
     {
-        //StartCoroutine(ChangeTreeState());
         _livingTime -= _changeStateTime;
     }
-    //private IEnumerator ChangeTreeState()
-    //{
-    //    for (int i = 0; i < _gardenTreesList.Count; i++)
-    //    {
-    //        _gardenTreesList[i].GetComponent<TreeHandler>().livingTime -= _changeStateTime;
-    //        if (i % 3 == 0)
-    //            yield return new WaitForSeconds(Time.deltaTime);
-    //    }
-    //}
+    private void CollectButtonUI_OnCollectButtonClicked(object sender, EventArgs e)
+    {
+        _livingTime += _changeStateTime;
+    }
     private IEnumerator ChangeTreeVisual(int stateNumber)
     {
         for (int i = 0; i < _gardenTreesList.Count; i++)
@@ -125,6 +78,11 @@ public class Garden : MonoBehaviour
             _gardenTreesList[i].GetComponent<TreeHandler>().ChangeTreeState(stateNumber);
             if (i % 3 == 0)
                 yield return new WaitForSeconds(Time.deltaTime);
+            if (i ==  _gardenTreesList.Count -2 && gardenState == GardenState.FruitsTrees)
+            {
+                OnFruitsButton?.Invoke(this, EventArgs.Empty);
+                Debug.Log("CollectButton");
+            }
         }
     }
     private void HandleTreesState(int previousTreeStateNumber, GardenState previousGardenState,
@@ -143,5 +101,13 @@ public class Garden : MonoBehaviour
             gardenState = nextGardenState;
         }
     }
-    
+    private void HandleFruitsState()
+    {
+        if (_livingTime > _changeStateTime)
+        {
+            _livingTime = 0;
+            StartCoroutine(ChangeTreeVisual(4));
+            gardenState = GardenState.LeavesTrees;
+        }
+    }
 }

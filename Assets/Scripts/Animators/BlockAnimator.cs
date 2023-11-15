@@ -16,15 +16,6 @@ public class BlockAnimator : MonoBehaviour
     {
         _blockAnimator = GetComponent<Animator>();
     }
-    //private void Start()
-    //{
-    //    _block.OnBlockIdleForVisual += _block_OnBlockIdleForVisual;
-    //}
-
-    //private void _block_OnBlockIdleForVisual(object sender, System.EventArgs e)
-    //{
-    //    _blockAnimator.SetTrigger(IDLE_BLOCK);
-    //}
 
     private void Update()
     {
@@ -34,21 +25,6 @@ public class BlockAnimator : MonoBehaviour
             HandleReplacedAnimation();
             HandleIdleAnimation();
         }
-        //if (_block.blockState == Block.BlockState.FirstFlight)
-        //{
-        //    _blockAnimator.SetTrigger(FIRST_FLIGHT);
-        //}
-        //else _blockAnimator.ResetTrigger(FIRST_FLIGHT);
-
-
-        //if (_block.blockState == Block.BlockState.Idle)
-        //{
-        //    _blockAnimator.SetTrigger(IDLE_BLOCK);
-        //}
-        //else _blockAnimator.ResetTrigger(IDLE_BLOCK);
-
-
-
     }
 
     private void HandleCreatedAnimation()

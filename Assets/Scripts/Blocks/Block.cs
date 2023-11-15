@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
     public static event EventHandler<OnBlockReplacingEventArgs> OnBlockReplacing;
     public class OnBlockReplacingEventArgs : EventArgs
     {
@@ -61,8 +62,10 @@ public class Block : MonoBehaviour
     private void Awake()
     {
         _geyserCollider = GetComponent<GeyserCollider>();
-        _killPlayerTime = ConstantsKeeper.KILL_PLAYER_TIME;
-        _dropDelayTime = ConstantsKeeper.DROP_DELAY_TIME;
+        //_killPlayerTime = ConstantsKeeper.KILL_PLAYER_TIME;
+        //_dropDelayTime = ConstantsKeeper.DROP_DELAY_TIME;
+        _killPlayerTime = _gameConstantsSO.killPlayerTime;
+        _dropDelayTime = _gameConstantsSO.dropDelayTime;
         _timeWithPlayer = 0;
         _livingTime = 0;
     }

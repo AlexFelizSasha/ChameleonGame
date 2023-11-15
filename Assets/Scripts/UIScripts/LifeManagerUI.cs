@@ -11,11 +11,13 @@ public class LifeManagerUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _lifeText;
     [SerializeField] private CollectButtonUI _collectButton;
+    [SerializeField] private GameConstantsSO _gameConstantsSO;
     private int _lifeAmount;
 
     private void Start()
     {
-        _lifeAmount = ConstantsKeeper.LIFE_AMOUNT;
+        //_lifeAmount = ConstantsKeeper.LIFE_AMOUNT;
+        _lifeAmount = _gameConstantsSO.lifeAmount;
         Block.OnKillPlayer += Block_OnKillPlayer;
         _collectButton.OnCollectButtonClicked += _collectButton_OnCollectButtonClicked;
 

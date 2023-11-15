@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerVisual: {fileID: 5742812794216347203}
   _playerRadar: {fileID: 4293455947423737378}
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
   _isMoving: 0
 --- !u!1 &4107758400576874302
 GameObject:

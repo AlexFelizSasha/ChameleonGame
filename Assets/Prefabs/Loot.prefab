@@ -4443,6 +4443,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 61fe89e610d0c2e4893e83fdb818dcf0, type: 2}
   - {fileID: 11400000, guid: 8ee4ee6aac775d24c8b4f80c06c25226, type: 2}
   - {fileID: 11400000, guid: 48fcc06c5fe3f68469a10589943557d5, type: 2}
+  _gameConstantsSO: {fileID: 11400000, guid: e619342a72cd0224eaf9080317a66a63, type: 2}
 --- !u!95 &2801253500172849479
 Animator:
   serializedVersion: 5
