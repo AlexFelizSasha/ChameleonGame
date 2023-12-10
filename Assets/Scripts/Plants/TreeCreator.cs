@@ -32,10 +32,6 @@ public class TreeCreator : MonoBehaviour
             Destroy(instance.gameObject);
         else instance = this;
 
-
-        //_boldTreesAmount = ConstantsKeeper.DEAD_TREES_AMOUNT;
-        //_gardenTreesAmount = ConstantsKeeper.GARDEN_TREES_AMOUNT;
-        //_groundYposition = ConstantsKeeper.TREE_Y_POSITION;
         _boldTreesAmount = _gameConstantsSO.deadTreesAmount;
         _gardenTreesAmount = _gameConstantsSO.gardenTreesAmount;
         _groundYposition = _gameConstantsSO.treePositionY;

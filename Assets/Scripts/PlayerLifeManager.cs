@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerLifeManager : MonoBehaviour
 {
     [SerializeField] private GameConstantsSO _gameConstantsSO;
-    public static event EventHandler OnGameOver;
+    public static event EventHandler OnLifeManagerGameOver;
 
     private int _lifeAmount;
 
@@ -25,7 +25,7 @@ public class PlayerLifeManager : MonoBehaviour
         _lifeAmount --;
         if (_lifeAmount == 0 )
         {
-            OnGameOver?.Invoke(this, EventArgs.Empty);
+            OnLifeManagerGameOver?.Invoke(this, EventArgs.Empty);
         }
     }
 }

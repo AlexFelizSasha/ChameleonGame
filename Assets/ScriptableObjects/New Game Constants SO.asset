@@ -20,10 +20,11 @@ MonoBehaviour:
   cloudsPositionY: 1
   dropDelayTime: 20
   treeChangeStateTime: 60
-  deadTreesAmount: 200
-  gardenTreesAmount: 120
+  deadTreesAmount: 400
+  gardenTreesAmount: 180
   treePositionY: -10.5
   fullWaterBarrelScore: 100
+  waterMachineMoveSpeed: 3
   baggagePositionY: -10
   baggageUnloadScore: 10
   baggageMoveSpeed: 6
@@ -31,4 +32,4 @@ MonoBehaviour:
   playerMoveSpeed: 10
   lootPoolSize: 10
   lootAmount: 8
-  lootScoreMinimal: 10
+  lootScoreMinimal: 1

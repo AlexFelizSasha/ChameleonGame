@@ -9,11 +9,11 @@ public class Garden : MonoBehaviour
     [SerializeField] private CollectButtonUI _collectButtonUI;
 
     public event EventHandler OnFruitsButton;
+    public static event Action OnTreesDead;
 
     private float _livingTime;
     private float _changeStateTime;
     private List<GameObject> _gardenTreesList;
-    private TreeHandler _treeHandler;
 
     public enum GardenState
     {
@@ -82,6 +82,11 @@ public class Garden : MonoBehaviour
             {
                 OnFruitsButton?.Invoke(this, EventArgs.Empty);
                 Debug.Log("CollectButton");
+            }
+            if (i == _gardenTreesList.Count - 1 && gardenState == GardenState.DeadTrees)
+            {
+                OnTreesDead?.Invoke();
+                Debug.Log("Tress Are Dead");
             }
         }
     }
