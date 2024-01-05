@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class WateringStopPoint : MonoBehaviour
 {
-    public static event EventHandler OnWateringStopPoint;
+    public static event Action OnWateringStopPoint;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponentInParent<WateringMachine>())
         {
-            OnWateringStopPoint?.Invoke(this, EventArgs.Empty);
+            OnWateringStopPoint?.Invoke();
         }
     }
 }

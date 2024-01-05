@@ -8,13 +8,13 @@ public class PauseButton : MonoBehaviour
 {
     [SerializeField] private Button _pauseButton;
 
-    public static event EventHandler OnPauseButtonClicked;
+    public static event Action OnPauseButtonClicked;
 
     private void Awake()
     {
         _pauseButton.onClick.AddListener(() =>
         {
-            OnPauseButtonClicked?.Invoke(this, EventArgs.Empty);
+            OnPauseButtonClicked?.Invoke();
         }
         );
     }

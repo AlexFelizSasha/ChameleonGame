@@ -8,7 +8,7 @@ public class Garden : MonoBehaviour
     [SerializeField] private GameConstantsSO _gameConstantsSO;
     [SerializeField] private CollectButtonUI _collectButtonUI;
 
-    public event EventHandler OnFruitsButton;
+    public event Action OnFruitsButton;
     public static event Action OnTreesDead;
 
     private float _livingTime;
@@ -29,7 +29,6 @@ public class Garden : MonoBehaviour
         gardenState = GardenState.LeavesTrees;
         _livingTime = 0;
         _gardenTreesList = TreeCreator.instance.GetGardenTreeList();
-        //_changeStateTime = ConstantsKeeper.TREE_CHANGE_STATE_TIME;
         _changeStateTime = _gameConstantsSO.treeChangeStateTime;
     }
     private void Start()
@@ -40,7 +39,10 @@ public class Garden : MonoBehaviour
         WateringStopPoint.OnWateringStopPoint += WateringStopPoint_OnWateringStopPoint;
         _collectButtonUI.OnCollectButtonClicked += CollectButtonUI_OnCollectButtonClicked;
     }
-
+    private void OnDisable()
+    {
+        WateringStopPoint.OnWateringStopPoint -= WateringStopPoint_OnWateringStopPoint;
+    }
 
     private void Update()
     {
@@ -63,7 +65,7 @@ public class Garden : MonoBehaviour
                 break;
         }
     }
-    private void WateringStopPoint_OnWateringStopPoint(object sender, System.EventArgs e)
+    private void WateringStopPoint_OnWateringStopPoint()
     {
         _livingTime -= _changeStateTime;
     }
@@ -80,7 +82,7 @@ public class Garden : MonoBehaviour
                 yield return new WaitForSeconds(Time.deltaTime);
             if (i ==  _gardenTreesList.Count -2 && gardenState == GardenState.FruitsTrees)
             {
-                OnFruitsButton?.Invoke(this, EventArgs.Empty);
+                OnFruitsButton?.Invoke();
                 Debug.Log("CollectButton");
             }
             if (i == _gardenTreesList.Count - 1 && gardenState == GardenState.DeadTrees)

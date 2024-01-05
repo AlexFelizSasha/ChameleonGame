@@ -27,7 +27,6 @@ public class BlocksCreator : MonoBehaviour
     }
     private void Start()
     {
-        //Debug.Log("blocks Creator");
         SetSpawnCoordinates();
         PutBlocksSquareOnMap();
     }

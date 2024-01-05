@@ -19,7 +19,10 @@ public class PlayerLifeManager : MonoBehaviour
     {
         Block.OnKillPlayer += Block_OnKillPlayer;
     }
-
+    private void OnDisable()
+    {
+        Block.OnKillPlayer -= Block_OnKillPlayer;
+    }
     private void Block_OnKillPlayer(object sender, System.EventArgs e)
     {
         _lifeAmount --;

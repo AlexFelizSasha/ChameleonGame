@@ -43,6 +43,11 @@ public class Player : MonoBehaviour
             MoveToNewBlock(_pointToMove);
         }
     }
+    private void OnDisable()
+    {
+        ColorButtonsManagerUI.OnColorChangedWithButton -= ColorButtonsManager_OnColorChangedWithButton;
+        Block.OnKillPlayer -= Block_OnKillPlayer;
+    }
     private void Block_OnKillPlayer(object sender, EventArgs e)
     {
         Debug.Log("Player killed!");

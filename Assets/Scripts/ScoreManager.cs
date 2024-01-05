@@ -33,7 +33,11 @@ public class ScoreManager : MonoBehaviour
         if (_unloadedScore >= _fullBarrelScore)
             OnBarrelLoaded?.Invoke(this, EventArgs.Empty);
     }
-
+    private void OnDisable()
+    {
+        Loot.OnLootScoreAdd -= Loot_OnScoreAdd;
+        PlayerBaggage.OnScoreUnload -= PlayerBaggage_OnScoreUnload;
+    }
     private void PlayerBaggage_OnScoreUnload(object sender, PlayerBaggage.OnScoreUnloadEventArgs e)
     {
         _unloadedScore += e.unloadScore;

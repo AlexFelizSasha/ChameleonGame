@@ -30,7 +30,6 @@ public class GeyserParticle : MonoBehaviour
     private void Awake()
     {
         _geyserCollider = GetComponent<GeyserCollider>();
-        //_geyserBlockTime = ConstantsKeeper.DROP_DELAY_TIME;
         _geyserBlockTime = _gameConstantsSO.dropDelayTime;
     }
     private void Start()

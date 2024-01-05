@@ -12,6 +12,10 @@ public class ScoreTextOnLootUI : ScoreTextPopUpUI
     {
         Loot.OnLootScoreAdd += Loot_OnLootScoreAdd;
     }
+    private void OnDisable()
+    {
+        Loot.OnLootScoreAdd -= Loot_OnLootScoreAdd;
+    }
     private void Loot_OnLootScoreAdd(object sender, Loot.OnLootScoreAddEventArgs e)
     {
         SetScoreText(e.lootScore);

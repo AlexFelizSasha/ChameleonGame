@@ -26,6 +26,22 @@ public class ChameleonGameManager : MonoBehaviour
         GameOverMenuUI.OnGameOverRestartButtonClicked += GameOverMenuUI_OnGameOverRestartButtonClicked;
         GameOverMenuUI.OnGameOverMenuButtonClicked += GameOverMenuUI_OnGameOverMenuButtonClicked;
     }
+    private void OnDisable()
+    {
+        PauseButton.OnPauseButtonClicked -= PauseButton_OnPauseButtonClicked;
+
+        PauseMenuUI.OnPausePlayButtonClicked -= PauseMenuUI_OnPausePlayButtonClicked;
+        PauseMenuUI.OnPauseQuitButtonClicked -= PauseMenuUI_OnPauseQuitButtonClicked;
+        PauseMenuUI.OnPauseMenuButtonClicked -= PauseMenuUI_OnPauseMenuButtonClicked;
+
+        PlayerLifeManager.OnLifeManagerGameOver -= PlayerLifeManager_OnGameOver;
+
+        Garden.OnTreesDead -= Garden_OnTreesDead;
+
+        GameOverMenuUI.OnGameOverQuitButtonClicked -= GameOverMenuUI_OnGameOverQuitButtonClicked;
+        GameOverMenuUI.OnGameOverRestartButtonClicked -= GameOverMenuUI_OnGameOverRestartButtonClicked;
+        GameOverMenuUI.OnGameOverMenuButtonClicked -= GameOverMenuUI_OnGameOverMenuButtonClicked;
+    }
     private void Garden_OnTreesDead()
     {
         HandleGameOver();
@@ -58,7 +74,7 @@ public class ChameleonGameManager : MonoBehaviour
     {
         HandlePauseUnclicked();
     }
-    private void PauseButton_OnPauseButtonClicked(object sender, System.EventArgs e)
+    private void PauseButton_OnPauseButtonClicked()
     {
         HandlePauseClicked();
     }
@@ -86,6 +102,7 @@ public class ChameleonGameManager : MonoBehaviour
     private void GoToMainMenu()
     {
         Time.timeScale = 1;
+        _pauseMenu.SetActive(false);
         SceneManager.LoadScene(0);
     }
     private void RestartGame()

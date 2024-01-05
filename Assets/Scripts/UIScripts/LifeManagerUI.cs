@@ -23,6 +23,10 @@ public class LifeManagerUI : MonoBehaviour
 
         _lifeText.text = _lifeAmount.ToString();
     }
+    private void OnDisable()
+    {
+        Block.OnKillPlayer -= Block_OnKillPlayer;
+    }
 
     private void _collectButton_OnCollectButtonClicked(object sender, System.EventArgs e)
     {

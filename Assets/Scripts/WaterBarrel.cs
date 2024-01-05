@@ -21,7 +21,10 @@ public class WaterBarrel : MonoBehaviour
             _score = 0;
         }
     }
-
+    private void OnDisable()
+    {
+        PlayerBaggage.OnScoreUnload -= PlayerBaggage_OnScoreUnload;
+    }
     private void PlayerBaggage_OnScoreUnload(object sender, PlayerBaggage.OnScoreUnloadEventArgs e)
     {
         _score += e.unloadScore;

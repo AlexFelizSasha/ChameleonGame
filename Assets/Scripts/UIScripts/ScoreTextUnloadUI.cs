@@ -11,7 +11,10 @@ public class ScoreTextUnloadUI : ScoreTextPopUpUI
     {
         PlayerBaggage.OnScoreUnload += PlayerBaggage_OnScoreUnload;
     }
-
+    private void OnDisable()
+    {
+        PlayerBaggage.OnScoreUnload -= PlayerBaggage_OnScoreUnload;
+    }
     private void PlayerBaggage_OnScoreUnload(object sender, PlayerBaggage.OnScoreUnloadEventArgs e)
     {
         SetScoreText(e.unloadScore);

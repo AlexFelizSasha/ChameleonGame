@@ -36,12 +36,10 @@ public class GeyserAnimator : MonoBehaviour
         _geyserCollider.OnDropOnGeyser += _geyserCollider_OnDropOnGeyser;
 
         _animatorTimer = 0;
-        //_dropDelayTime = ConstantsKeeper.DROP_DELAY_TIME;
         _dropDelayTime = _gameConstantsSO.dropDelayTime;
         geyserAnimatorState = GeyserAnimatorState.Open;
         _geyserAnimator.SetBool(OPEN_GEYSER, true);
     }
-
 
     private void Update()
     {
@@ -68,6 +66,11 @@ public class GeyserAnimator : MonoBehaviour
                 break;
         }
     }
+    private void OnDisable()
+    {
+        Block.OnBlockDestroyed -= Block_OnBlockDestroyed;
+    }
+
     private void _geyserCollider_OnDropOnGeyser(object sender, EventArgs e)
     {
         _animatorTimer = -_dropDelayTime;

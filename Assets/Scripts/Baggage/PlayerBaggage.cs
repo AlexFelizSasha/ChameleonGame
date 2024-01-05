@@ -35,10 +35,6 @@ public class PlayerBaggage : MonoBehaviour
 
     private void Awake()
     {
-        //_positionY = ConstantsKeeper.BAGGAGE_Y_POSITION;
-        //_unloadScore = ConstantsKeeper.BAGGAGE_UNLOAD_SCORE;
-        //_moveSpeed = ConstantsKeeper.BAGGAGE_MOVE_SPEED;
-        //_unloadTime = ConstantsKeeper.BAGGAGE_UNLOAD_TIME;
         _positionY = _gameConstantsSO.baggagePositionY;
         _unloadScore = _gameConstantsSO.baggageUnloadScore;
         _moveSpeed = _gameConstantsSO.baggageMoveSpeed;
@@ -85,6 +81,10 @@ public class PlayerBaggage : MonoBehaviour
                 }
                 break;
         }
+    }
+    private void OnDisable()
+    {
+        Loot.OnLootScoreAdd -= Loot_OnLootScoreAdd;
     }
     private void Loot_OnLootScoreAdd(object sender, Loot.OnLootScoreAddEventArgs e)
     {

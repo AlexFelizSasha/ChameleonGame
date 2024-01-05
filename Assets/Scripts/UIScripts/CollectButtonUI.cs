@@ -25,7 +25,7 @@ public class CollectButtonUI : MonoBehaviour
             });
     }
 
-    private void Garden_OnFruitsButton(object sender, System.EventArgs e)
+    private void Garden_OnFruitsButton()
     {
         Show();
         Debug.Log("SHOW COLLECT BUTTON");

@@ -60,7 +60,6 @@ public class Loot : MonoBehaviour
     private void OnEnable()
     {
         lootState = LootState.Creation;
-        //_lootScoreMinimal = ConstantsKeeper.LOOT_SCORE_MINIMAL;
         _lootScoreMinimal = _gameConstantsSO.lootScoreMinimal;
     }
 

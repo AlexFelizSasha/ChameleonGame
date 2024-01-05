@@ -15,8 +15,6 @@ public class LootCreator : MonoBehaviour
 
     private void Awake()
     {
-        //_lootAmount = ConstantsKeeper.LOOT_AMOUNT;
-        //_startPositionY = ConstantsKeeper.CLOUDS_Y_POSITION;
         _lootAmount = _gameConstantsSO.lootAmount;
         _startPositionY = _gameConstantsSO.startPositionY;
         _lootPool = GetComponent<LootPool>();
@@ -24,7 +22,6 @@ public class LootCreator : MonoBehaviour
     private void Start()
     {
         _blockPositionList = BlocksCreator.Instance.GetBlocksOnMapPositionList().ToList();
-        //Debug.Log(_blockPositionList.Count + " Loot amount");
         for (int i = 0; i < _lootAmount; i++)
         {
             CreateLootOnMap();
@@ -34,6 +31,12 @@ public class LootCreator : MonoBehaviour
         Block.OnBlockIdle += Block_OnBlockIdle;
         Block.OnBlockReplacing += Block_OnBlockReplacing;
         Loot.OnLootDestroyed += Loot_OnLootDestroyed;
+    }
+    private void OnDisable()
+    {
+        Block.OnBlockIdle -= Block_OnBlockIdle;
+        Block.OnBlockReplacing -= Block_OnBlockReplacing;
+        Loot.OnLootDestroyed -= Loot_OnLootDestroyed;
     }
     private void Loot_OnLootDestroyed(object sender, Loot.OnLootDroppedEventArgs e)
     {

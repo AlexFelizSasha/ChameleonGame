@@ -62,8 +62,6 @@ public class Block : MonoBehaviour
     private void Awake()
     {
         _geyserCollider = GetComponent<GeyserCollider>();
-        //_killPlayerTime = ConstantsKeeper.KILL_PLAYER_TIME;
-        //_dropDelayTime = ConstantsKeeper.DROP_DELAY_TIME;
         _killPlayerTime = _gameConstantsSO.killPlayerTime;
         _dropDelayTime = _gameConstantsSO.dropDelayTime;
         _timeWithPlayer = 0;
@@ -109,6 +107,10 @@ public class Block : MonoBehaviour
                 HandleWithDropState();
                 break;
         }
+    }
+    private void OnDisable()
+    {
+        GeyserCollider.OnDropForBlock -= GeyserCollider_OnDropForBlock;
     }
     private void HandleCreationState()
     {

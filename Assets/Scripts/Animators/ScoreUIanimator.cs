@@ -15,6 +15,10 @@ public class ScoreUIanimator : MonoBehaviour
     {
         ScoreManager.OnScoreChanging += ScoreManager_OnScoreChanging;
     }
+    private void OnDisable()
+    {
+        ScoreManager.OnScoreChanging -= ScoreManager_OnScoreChanging;
+    }
 
     private void ScoreManager_OnScoreChanging(object sender, ScoreManager.OnScoreChangingEventArgs e)
     {
