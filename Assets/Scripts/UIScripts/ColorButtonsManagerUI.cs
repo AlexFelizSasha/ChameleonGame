@@ -25,51 +25,107 @@ public class ColorButtonsManagerUI : MonoBehaviour
     [SerializeField] private MaterialSOList _materialSOList;
     private MaterialSO _materialSO;
 
+    private ButtonCoolDown _brownButtonCooldown;
+    private ButtonCoolDown _darkBlueButtonCooldown;
+    private ButtonCoolDown _redButtonCooldown;
+    private ButtonCoolDown _greenButtonCooldown;
+    private ButtonCoolDown _yellowButtonCooldown;
+    private ButtonCoolDown _grayButtonCooldown;
+    private ButtonCoolDown _blueButtonCooldown;
+    private ButtonCoolDown _orangeButtonCooldown;
+    private ButtonCoolDown _violetButtonCooldown;
+
     private void Awake()
     {
+        _brownButtonCooldown = _brownButton.GetComponent<ButtonCoolDown>();
+        _darkBlueButtonCooldown = _darkBlueButton.GetComponent<ButtonCoolDown>();
+        _redButtonCooldown = _redButton.GetComponent<ButtonCoolDown>();
+        _greenButtonCooldown = _greenButton.GetComponent<ButtonCoolDown>();
+        _yellowButtonCooldown = _yellowButton.GetComponent<ButtonCoolDown>();
+        _grayButtonCooldown = _grayButton.GetComponent<ButtonCoolDown>();
+        _blueButtonCooldown = _blueButton.GetComponent<ButtonCoolDown>();
+        _orangeButtonCooldown = _orangeButton.GetComponent<ButtonCoolDown>();
+        _violetButtonCooldown = _violetButton.GetComponent<ButtonCoolDown>();
+
         _brownButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.Brown);
+            if (_brownButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.Brown);
+                _brownButtonCooldown.ColldownButton();
+            }
         }
         );
         _darkBlueButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.DarkBlue);
+            if (_darkBlueButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.DarkBlue);
+                _darkBlueButtonCooldown.ColldownButton();
+            }
         }
         );
         _redButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.Red);
+            if (_redButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.Red);
+                _redButtonCooldown.ColldownButton();
+            }
         }
         );
         _greenButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.Green);
+            if (_greenButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.Green);
+                _greenButtonCooldown.ColldownButton();
+            }
         }
         );
         _yellowButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.Yellow);
+            if (_yellowButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.Yellow);
+                _yellowButtonCooldown.ColldownButton();
+            }
         }
         );
         _grayButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.Gray);
+            if (_grayButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.Gray);
+                _grayButtonCooldown.ColldownButton();
+            }
         }
         );
         _blueButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.Blue);
+            if (_blueButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.Blue);
+                _blueButtonCooldown.ColldownButton();
+            }
         }
         );
         _orangeButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.Orange);
+            if (_orangeButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.Orange);
+                _orangeButtonCooldown.ColldownButton();
+            }
         }
         );
         _violetButton.onClick.AddListener(() =>
         {
-            GiveColor(_materialSOList.Violet);
+            if (_violetButtonCooldown.isActive)
+            {
+                GiveColor(_materialSOList.Violet);
+                _violetButtonCooldown.ColldownButton();
+            }
         }
         );
     }

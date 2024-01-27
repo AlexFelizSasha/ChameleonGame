@@ -34,4 +34,6 @@ public class GameConstantsSO : ScriptableObject
     public int lootPoolSize = 10;
     public int lootAmount = 8;
     public int lootScoreMinimal = 10;
+
+    public int colorButtonCooldownTime = 4;
 }
