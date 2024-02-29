@@ -6,19 +6,27 @@ using UnityEngine;
 public class PlayerLifeManager : MonoBehaviour
 {
     [SerializeField] private GameConstantsSO _gameConstantsSO;
+    [SerializeField] private CollectButtonUI _collectButton;
+
     public static event EventHandler OnLifeManagerGameOver;
 
     private int _lifeAmount;
 
     private void Awake()
     {
-        //_lifeAmount = ConstantsKeeper.LIFE_AMOUNT;
         _lifeAmount = _gameConstantsSO.lifeAmount;
     }
     private void Start()
     {
         Block.OnKillPlayer += Block_OnKillPlayer;
+        _collectButton.OnCollectButtonClicked += CollectButton_OnCollectButtonClicked;
     }
+
+    private void CollectButton_OnCollectButtonClicked(object sender, EventArgs e)
+    {
+        _lifeAmount++;
+    }
+
     private void OnDisable()
     {
         Block.OnKillPlayer -= Block_OnKillPlayer;

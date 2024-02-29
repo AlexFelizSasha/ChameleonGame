@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: New Game Constants SO
   m_EditorClassIdentifier: 
   lifeAmount: 5
-  killPlayerTime: 10
+  killPlayerTime: 7
   startPositionX: -5
   startPositionY: 1
   startPositionZ: 0
   cloudsPositionY: 1
   dropDelayTime: 20
-  treeChangeStateTime: 60
+  treeChangeStateTime: 80
   deadTreesAmount: 400
   gardenTreesAmount: 180
   treePositionY: -10.5
@@ -31,5 +31,6 @@ MonoBehaviour:
   baggageUnloadTime: 5
   playerMoveSpeed: 10
   lootPoolSize: 10
-  lootAmount: 8
+  lootAmount: 7
   lootScoreMinimal: 1
+  colorButtonCooldownTime: 4

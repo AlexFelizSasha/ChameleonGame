@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public event EventHandler<OnLeavingBlockEventArgs> OnLeavingBlock;
-    public class OnLeavingBlockEventArgs : EventArgs
-    {
-        public Transform leftBlockTransform;
-    }
+    //public event EventHandler<OnLeavingBlockEventArgs> OnLeavingBlock;
+    //public class OnLeavingBlockEventArgs : EventArgs
+    //{
+    //    public Transform leftBlockTransform;
+    //}
 
     [SerializeField] private Transform _playerVisual;
     [SerializeField] private Transform _playerRadar;
     [SerializeField] private GameConstantsSO _gameConstantsSO;
 
+    public event Action OnPlayerMoves;
     private SearchingBlockColor _blockColorSearch;
     private Transform _pointToMove;
     private Vector3 _startGamePosition;
@@ -62,6 +63,7 @@ public class Player : MonoBehaviour
         Block _sameColorBlock = _blockColorSearch.FindSameColorBlock(_playerVisual, _playerRadar);
         if (_sameColorBlock != null)
         {
+            OnPlayerMoves.Invoke();
             _pointToMove = _sameColorBlock.transform;
         }
     }
@@ -86,10 +88,10 @@ public class Player : MonoBehaviour
     }
     private void MoveToNewBlock(Transform pointTransform)
     {
-        OnLeavingBlock?.Invoke(this, new OnLeavingBlockEventArgs
-        {
-            leftBlockTransform = transform
-        });
+        //OnLeavingBlock?.Invoke(this, new OnLeavingBlockEventArgs
+        //{
+        //    leftBlockTransform = transform
+        //}) ;
         float _moveDistance = _moveSpeed * Time.deltaTime;
         Vector3 _blockPosition = pointTransform.position;
 
