@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class PlayerLifeManager : MonoBehaviour
 {
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
     [SerializeField] private CollectButtonUI _collectButton;
 
     public static event EventHandler OnLifeManagerGameOver;
 
+    private GameConstantsSO _gameConstantsSO;
     private int _lifeAmount;
 
     private void Awake()
     {
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _lifeAmount = _gameConstantsSO.lifeAmount;
     }
     private void Start()

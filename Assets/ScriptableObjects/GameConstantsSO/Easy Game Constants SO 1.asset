@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45108b0323f1dd4ba4be85b30f33d28, type: 3}
+  m_Name: Easy Game Constants SO 1
+  m_EditorClassIdentifier: 
+  lifeAmount: 5
+  killPlayerTime: 10
+  startPositionX: -5
+  startPositionY: 1
+  startPositionZ: 0
+  cloudsPositionY: 1
+  dropDelayTime: 20
+  treeChangeStateTime: 100
+  deadTreesAmount: 400
+  gardenTreesAmount: 180
+  treePositionY: -10.5
+  fullWaterBarrelScore: 100
+  waterMachineMoveSpeed: 3
+  baggagePositionY: -10
+  baggageUnloadScore: 10
+  baggageMoveSpeed: 6
+  baggageUnloadTime: 5
+  playerMoveSpeed: 10
+  lootPoolSize: 10
+  lootAmount: 7
+  lootScoreMinimal: 5
+  colorButtonCooldownTime: 4

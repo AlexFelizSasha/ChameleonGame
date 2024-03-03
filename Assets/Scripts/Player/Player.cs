@@ -5,26 +5,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //public event EventHandler<OnLeavingBlockEventArgs> OnLeavingBlock;
-    //public class OnLeavingBlockEventArgs : EventArgs
-    //{
-    //    public Transform leftBlockTransform;
-    //}
-
     [SerializeField] private Transform _playerVisual;
     [SerializeField] private Transform _playerRadar;
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
 
     public event Action OnPlayerMoves;
+    public bool _isMoving = false;
+    
+    private GameConstantsSO _gameConstantsSO;
     private SearchingBlockColor _blockColorSearch;
     private Transform _pointToMove;
     private Vector3 _startGamePosition;
     private float _moveSpeed;
-    public bool _isMoving = false;
 
     private void Awake()
     {
-        //_moveSpeed = ConstantsKeeper.PLAYER_MOVE_SPEED;
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _moveSpeed = _gameConstantsSO.playerMoveSpeed;
         _blockColorSearch = _playerRadar.gameObject.GetComponent<SearchingBlockColor>();
         _pointToMove = null;
@@ -51,7 +46,6 @@ public class Player : MonoBehaviour
     }
     private void Block_OnKillPlayer(object sender, EventArgs e)
     {
-        Debug.Log("Player killed!");
         transform.position = _startGamePosition;
         _pointToMove = transform;
     }
@@ -74,7 +68,6 @@ public class Player : MonoBehaviour
         var _playerMaterials = _renderer.materials;
         _playerMaterials[0] = _material;
         _renderer.materials = _playerMaterials;
-        //Debug.Log("Color Changed to " + materialSO.Color);
     }
     private void ChangeDirectionToChosenColor()
     {
@@ -88,10 +81,6 @@ public class Player : MonoBehaviour
     }
     private void MoveToNewBlock(Transform pointTransform)
     {
-        //OnLeavingBlock?.Invoke(this, new OnLeavingBlockEventArgs
-        //{
-        //    leftBlockTransform = transform
-        //}) ;
         float _moveDistance = _moveSpeed * Time.deltaTime;
         Vector3 _blockPosition = pointTransform.position;
 

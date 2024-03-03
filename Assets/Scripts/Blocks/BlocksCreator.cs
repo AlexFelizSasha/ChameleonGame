@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BlocksCreator : MonoBehaviour
 {
+    [SerializeField] private GameObject _blockPrefab;
     public static BlocksCreator Instance { get; private set; }
     public static int BlockSideSize {  get; private set; }
     public static int BlocksSquareSideSize { get; private set; }
 
-    [SerializeField] private GameObject _blockPrefab;
     private List<int> _blocksSpawnPositionXList;
     private List<int> _blocksSpawnPositionYList;
     private List<int> _blocksSpawnPositionZList;

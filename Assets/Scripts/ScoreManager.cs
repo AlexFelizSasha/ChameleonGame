@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
     public static event EventHandler OnBarrelLoaded;
     public static event EventHandler<OnScoreChangingEventArgs> OnScoreChanging;
     public class OnScoreChangingEventArgs: EventArgs
@@ -13,6 +12,7 @@ public class ScoreManager : MonoBehaviour
         public int score;
     }
 
+    private GameConstantsSO _gameConstantsSO;
     private int _unloadedScore;
     private int _fullBarrelScore;
 
@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        //_fullBarrelScore = ConstantsKeeper.FULL_WATER_BARREL_SCORE;
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _fullBarrelScore = _gameConstantsSO.fullWaterBarrelScore;
         _score = 0;
         _unloadedScore = 0;

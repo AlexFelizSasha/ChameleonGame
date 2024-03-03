@@ -6,7 +6,7 @@ using UnityEngine;
 public class LootCreator : MonoBehaviour
 {
     [SerializeField] private GameObject _lootPrefab;
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
+    private GameConstantsSO _gameConstantsSO;
 
     private List<Vector3> _blockPositionList;
     private LootPool _lootPool;
@@ -15,6 +15,7 @@ public class LootCreator : MonoBehaviour
 
     private void Awake()
     {
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _lootAmount = _gameConstantsSO.lootAmount;
         _startPositionY = _gameConstantsSO.startPositionY;
         _lootPool = GetComponent<LootPool>();

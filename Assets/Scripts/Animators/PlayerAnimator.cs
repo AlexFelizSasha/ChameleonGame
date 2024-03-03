@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
+    [SerializeField] private Player _player;
+
     private Animator _playerAnimator;
     private const string IS_MOVING = "IsMoving";
-    [SerializeField] private Player _player;
 
     private void Awake()
     {

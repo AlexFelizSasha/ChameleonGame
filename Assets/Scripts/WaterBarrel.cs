@@ -17,7 +17,6 @@ public class WaterBarrel : MonoBehaviour
         isFull = _score >= _barrelCapacity;
         if (isFull)
         {
-            Debug.Log($"Barrel is Full with {_score}");
             _score = 0;
         }
     }

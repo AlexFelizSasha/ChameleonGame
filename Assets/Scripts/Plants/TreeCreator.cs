@@ -8,7 +8,6 @@ public class TreeCreator : MonoBehaviour
 
     [SerializeField] private GameObject _boldTreePrefab;
     [SerializeField] private GameObject _gardenTreePrefab;
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
 
     [SerializeField] private Transform _worldBottomLeftPoint;
     [SerializeField] private Transform _worldTopRightPoint;
@@ -19,6 +18,7 @@ public class TreeCreator : MonoBehaviour
     [SerializeField] private Transform _barrelBottomLeftPoint;
     [SerializeField] private Transform _barrelTopRightPoint;
 
+    private GameConstantsSO _gameConstantsSO;
     private int _boldTreesAmount;
     private int _gardenTreesAmount;
     private float _groundYposition;
@@ -32,6 +32,7 @@ public class TreeCreator : MonoBehaviour
             Destroy(instance.gameObject);
         else instance = this;
 
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _boldTreesAmount = _gameConstantsSO.deadTreesAmount;
         _gardenTreesAmount = _gameConstantsSO.gardenTreesAmount;
         _groundYposition = _gameConstantsSO.treePositionY;
@@ -42,7 +43,6 @@ public class TreeCreator : MonoBehaviour
         SetGardenTreePosition();
         CreatePlants(_boldTreePrefab, _boldTreePositionList);
         CreateGardenTrees();
-        Debug.Log("TreeCreator");
     }
 
     private void CreatePlants(GameObject prefab, List<Vector3> positionsList)

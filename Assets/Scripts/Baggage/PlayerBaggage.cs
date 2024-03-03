@@ -8,7 +8,7 @@ public class PlayerBaggage : MonoBehaviour
 {
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private Transform _waterBarrel;
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
+    private GameConstantsSO _gameConstantsSO;
 
     public static event EventHandler<OnScoreUnloadEventArgs> OnScoreUnload;
     public class OnScoreUnloadEventArgs : EventArgs
@@ -35,6 +35,7 @@ public class PlayerBaggage : MonoBehaviour
 
     private void Awake()
     {
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _positionY = _gameConstantsSO.baggagePositionY;
         _unloadScore = _gameConstantsSO.baggageUnloadScore;
         _moveSpeed = _gameConstantsSO.baggageMoveSpeed;

@@ -7,21 +7,37 @@ public class MainMenuManager : MonoBehaviour
 {
     private void Start()
     {
-        MainMenuUI.OnQuitButtonClicked += MainMenuUI_OnQuitButtonClicked;
-        MainMenuUI.OnStartButtonClicked += MainMenuUI_OnStartButtonClicked;
-    }
-    private void OnDisable()
-    {
-        MainMenuUI.OnQuitButtonClicked -= MainMenuUI_OnQuitButtonClicked;
-        MainMenuUI.OnStartButtonClicked -= MainMenuUI_OnStartButtonClicked;
+        MainMenuUI.OnQuitButtonClicked += MainMenuUIOnQuitButtonClicked;
+
+        MainMenuUI.OnEasyStartButtonClicked += MainMenuUIOnEasyStartButtonClicked;
+        MainMenuUI.OnMediumStartButtonClicked += MainMenuUIOnMediumStartButtonClicked;
+        MainMenuUI.OnHardStartButtonClicked += MainMenuUIOnHardStartButtonClicked;
     }
 
-    private void MainMenuUI_OnStartButtonClicked()
+    private void OnDisable()
+    {
+        MainMenuUI.OnQuitButtonClicked -= MainMenuUIOnQuitButtonClicked;
+
+        MainMenuUI.OnEasyStartButtonClicked -= MainMenuUIOnEasyStartButtonClicked;
+        MainMenuUI.OnMediumStartButtonClicked -= MainMenuUIOnMediumStartButtonClicked;
+        MainMenuUI.OnHardStartButtonClicked -= MainMenuUIOnHardStartButtonClicked;
+    }
+
+    private void MainMenuUIOnEasyStartButtonClicked()
     {
         SceneManager.LoadScene(2);
     }
 
-    private void MainMenuUI_OnQuitButtonClicked()
+    private void MainMenuUIOnMediumStartButtonClicked()
+    {
+        SceneManager.LoadScene(2);
+    }
+    private void MainMenuUIOnHardStartButtonClicked()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    private void MainMenuUIOnQuitButtonClicked()
     {
         Application.Quit();
     }

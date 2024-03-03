@@ -5,12 +5,13 @@ using UnityEngine;
 public class LootPool : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _spawningObject;
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
+    private GameConstantsSO _gameConstantsSO;
 
     private int _poolSize;
     private List<GameObject> _poolObjectList;
     private void Awake()
     {
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _poolSize = _gameConstantsSO.lootPoolSize;
     }
     private void Start()

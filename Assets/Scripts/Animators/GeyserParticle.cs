@@ -8,7 +8,8 @@ public class GeyserParticle : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _geyserParticle;
     [SerializeField] private GeyserAnimator _geyserAnimator;
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
+
+    private GameConstantsSO _gameConstantsSO;
     private GeyserCollider _geyserCollider;
 
     private float _speedUpValue = 4f;
@@ -29,6 +30,7 @@ public class GeyserParticle : MonoBehaviour
     public GeyserParticleState geyserParticleState;
     private void Awake()
     {
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _geyserCollider = GetComponent<GeyserCollider>();
         _geyserBlockTime = _gameConstantsSO.dropDelayTime;
     }

@@ -7,17 +7,32 @@ using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [SerializeField] private Button _startButton;
+    [SerializeField] private Button _easyStartButton;
+    [SerializeField] private Button _mediumStartButton;
+    [SerializeField] private Button _hardSButton;
     [SerializeField] private Button _quitButton;
 
-    public static event Action OnStartButtonClicked;
+    public static event Action OnEasyStartButtonClicked;
+    public static event Action OnMediumStartButtonClicked;
+    public static event Action OnHardStartButtonClicked;
+
     public static event Action OnQuitButtonClicked;
 
     private void Start()
     {
-        _startButton.onClick.AddListener(() =>
+        _easyStartButton.onClick.AddListener(() =>
         {
-            OnStartButtonClicked?.Invoke();
+            OnEasyStartButtonClicked?.Invoke();
+        });
+
+        _mediumStartButton.onClick.AddListener(() =>
+        {
+            OnMediumStartButtonClicked?.Invoke();
+        });
+
+        _hardSButton.onClick.AddListener(() =>
+        {
+            OnHardStartButtonClicked?.Invoke();
         });
 
         _quitButton.onClick.AddListener(() =>

@@ -7,7 +7,7 @@ public class ButtonCoolDown : MonoBehaviour
 {
     public bool isActive = true;
 
-    [SerializeField] private GameConstantsSO _gameConstants;
+    private GameConstantsSO _gameConstantsSO;
     private float _ñooldownTimerMax;
     private float _cooldownTimer;
     private Button _button;
@@ -15,14 +15,14 @@ public class ButtonCoolDown : MonoBehaviour
 
     private void Awake()
     {
-        _ñooldownTimerMax = _gameConstants.colorButtonCooldownTime;
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
+        _ñooldownTimerMax = _gameConstantsSO.colorButtonCooldownTime;
 
         _button = GetComponent<Button>();
         _buttonImage = _button.GetComponent<Image>();
     }
     public void ColldownButton()
     {
-        Debug.Log("cooldown");
         _buttonImage.fillAmount = 0;
         isActive = false;
         _cooldownTimer = 0;
@@ -35,7 +35,6 @@ public class ButtonCoolDown : MonoBehaviour
             _cooldownTimer += Time.deltaTime;
             _buttonImage.fillAmount =_cooldownTimer/ _ñooldownTimerMax;
             isActive = _buttonImage.fillAmount >= 1;
-            Debug.Log("filling button" + _buttonImage.fillAmount);
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }

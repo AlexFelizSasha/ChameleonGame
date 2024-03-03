@@ -8,12 +8,12 @@ public class MainMenuSoundManager : MonoBehaviour
     void Start()
     {
         MainMenuUI.OnQuitButtonClicked += SoundOnQuitButtonClicked;
-        MainMenuUI.OnStartButtonClicked += SoundOnStartButtonClicked;
+        MainMenuUI.OnEasyStartButtonClicked += SoundOnStartButtonClicked;
     }
     private void OnDisable()
     {
         MainMenuUI.OnQuitButtonClicked -= SoundOnQuitButtonClicked;
-        MainMenuUI.OnStartButtonClicked -= SoundOnStartButtonClicked;
+        MainMenuUI.OnEasyStartButtonClicked -= SoundOnStartButtonClicked;
     }
 
     private void SoundOnStartButtonClicked()
@@ -29,6 +29,5 @@ public class MainMenuSoundManager : MonoBehaviour
     private void PlayButtonSound()
     {
         AudioSource.PlayClipAtPoint(_soundSO.button, Vector3.zero, 5f);
-        Debug.Log("Button Sound");
     }
 }

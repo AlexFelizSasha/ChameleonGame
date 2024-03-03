@@ -7,7 +7,7 @@ public class Loot : MonoBehaviour
 {  
     [SerializeField] private LootVisual _lootVisual;
     [SerializeField] private List<MaterialSO> _materialSOList;
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
+    private GameConstantsSO _gameConstantsSO;
 
     public static event EventHandler<OnLootScoreAddEventArgs> OnLootScoreAdd;
     public class OnLootScoreAddEventArgs : EventArgs
@@ -59,6 +59,7 @@ public class Loot : MonoBehaviour
 
     private void OnEnable()
     {
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         lootState = LootState.Creation;
         _lootScoreMinimal = _gameConstantsSO.lootScoreMinimal;
     }

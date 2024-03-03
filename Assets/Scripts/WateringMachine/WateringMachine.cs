@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class WateringMachine : MonoBehaviour
 {
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
     [SerializeField] private List<Transform> _machineRoutePoints;
     public static WateringMachine instance { get; private set; }
 
     public event EventHandler OnStartWatering;
     public event EventHandler OnStopWatering;
 
+    private GameConstantsSO _gameConstantsSO;
     private float _moveSpeed;
 
     private bool _isStopWatering;
@@ -32,6 +32,8 @@ public class WateringMachine : MonoBehaviour
             Destroy(instance);
         else
             instance = this;
+
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _moveSpeed = _gameConstantsSO.waterMachineMoveSpeed;
 
     }

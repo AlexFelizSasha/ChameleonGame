@@ -24,8 +24,6 @@ public class GeyserCollider : MonoBehaviour
             {
                 position = transform.position
             });
-            
-            Debug.Log("Drop on geyser" + transform.position);
         }
     }
 }

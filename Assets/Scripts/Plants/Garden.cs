@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class Garden : MonoBehaviour
 {
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
     [SerializeField] private CollectButtonUI _collectButtonUI;
 
     public event Action OnFruitsButton;
     public static event Action OnTreesDead;
 
+    private GameConstantsSO _gameConstantsSO;
     private float _livingTime;
     private float _changeStateTime;
     private List<GameObject> _gardenTreesList;
@@ -26,6 +26,7 @@ public class Garden : MonoBehaviour
     public GardenState gardenState;
     private void Awake()
     {
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         gardenState = GardenState.LeavesTrees;
         _livingTime = 0;
         _gardenTreesList = TreeCreator.instance.GetGardenTreeList();
@@ -33,8 +34,6 @@ public class Garden : MonoBehaviour
     }
     private void Start()
     {
-
-        Debug.Log("Garden");
         StartCoroutine(ChangeTreeVisual(4));
         WateringStopPoint.OnWateringStopPoint += WateringStopPoint_OnWateringStopPoint;
         _collectButtonUI.OnCollectButtonClicked += CollectButtonUI_OnCollectButtonClicked;
@@ -83,12 +82,10 @@ public class Garden : MonoBehaviour
             if (i ==  _gardenTreesList.Count -2 && gardenState == GardenState.FruitsTrees)
             {
                 OnFruitsButton?.Invoke();
-                Debug.Log("CollectButton");
             }
             if (i == _gardenTreesList.Count - 1 && gardenState == GardenState.DeadTrees)
             {
                 OnTreesDead?.Invoke();
-                Debug.Log("Tress Are Dead");
             }
         }
     }

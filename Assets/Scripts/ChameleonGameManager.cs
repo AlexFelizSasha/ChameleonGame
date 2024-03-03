@@ -82,14 +82,12 @@ public class ChameleonGameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
-        _colorButtons.SetActive(false);
         _pauseButton.SetActive(false);
     }
     private void HandlePauseUnclicked()
     {
         Time.timeScale = 1;
         _pauseMenu.SetActive(false);
-        _colorButtons.SetActive(true);
         _pauseButton.SetActive(true);
     }
     private void HandleGameOver()

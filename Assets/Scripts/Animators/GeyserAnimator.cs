@@ -12,7 +12,8 @@ public class GeyserAnimator : MonoBehaviour
 
     [SerializeField] private List<MaterialSO> _geyserMaterialSOlist;
     [SerializeField] private GameObject _geyserHole;
-    [SerializeField] private GameConstantsSO _gameConstantsSO;
+
+    private GameConstantsSO _gameConstantsSO;
 
     private float _animatorTimer;
     private float _dropDelayTime;
@@ -27,6 +28,7 @@ public class GeyserAnimator : MonoBehaviour
 
     public void Awake()
     {
+        _gameConstantsSO = DifficultyChoice.chosenDifficultySO;
         _geyserAnimator = GetComponent<Animator>();
         _geyserCollider = GetComponent<GeyserCollider>();
     }
