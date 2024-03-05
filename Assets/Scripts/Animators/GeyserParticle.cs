@@ -83,7 +83,6 @@ public class GeyserParticle : MonoBehaviour
     {
         _geyserOpenTime = _geyserBlockTime;
         SpeedupParticles(_speedBlockValue);
-        Debug.Log("Geyser blocked" + transform.position);
         geyserParticleState = GeyserParticleState.BlockGeyser;
     }
     private void SpeedupParticles(float speedUpValue)
